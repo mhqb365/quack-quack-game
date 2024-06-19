@@ -1,0 +1,20 @@
+{
+  "name": "quack",
+  "version": "1.0.0",
+  "description": "Quack Quack Game Tools",
+  "main": "quack.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.7.2",
+    "easytimer.js": "^4.6.0",
+    "random-useragent": "^0.5.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.13.0"
+  }
+}
