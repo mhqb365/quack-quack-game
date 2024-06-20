@@ -19,14 +19,14 @@ function addLog(msg, type) {
   let filename = "";
 
   switch (type) {
-    case "error":
-      filename = `error_log_${logDate}.txt`;
+    case "golden":
+      filename = `golden_duck_${logDate}.txt`;
       break;
     case "farm":
-      filename = `farm_log_${logDate}.txt`;
+      filename = `farm_${logDate}.txt`;
       break;
-    case "golden":
-      filename = `golden_duck_log_${logDate}.txt`;
+    case "error":
+      filename = `error_${logDate}.txt`;
       break;
     default:
       filename = `log_${logDate}.txt`;
