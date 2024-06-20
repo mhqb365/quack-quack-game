@@ -1,7 +1,7 @@
-const TOKEN_FILE_PATH = "./token.json";
+const TOKEN_FILE_PATH = "./token.txt";
 const fs = require("fs");
 
-const ERROR_MESSAGE = "\nToken error, see how to get Token at j2c.cc/quack\n";
+const ERROR_MESSAGE = "\nToken invalid, see how to get Token at j2c.cc/quack\n";
 
 function loadUserLoginInfo() {
   let content = "";
@@ -11,17 +11,11 @@ function loadUserLoginInfo() {
     fs.writeFileSync(TOKEN_FILE_PATH, "");
   }
 
-  try {
-    return JSON.parse(content);
-  } catch {
-    console.error(ERROR_MESSAGE);
-    process.exit(1);
-  }
+  return content;
 }
 
 function loadToken() {
-  const TELEGRAM_USER = loadUserLoginInfo();
-  const ACCESS_TOKEN = TELEGRAM_USER?.state?.token;
+  const ACCESS_TOKEN = loadUserLoginInfo();
   if (!ACCESS_TOKEN) {
     console.error(ERROR_MESSAGE);
     process.exit(1);
