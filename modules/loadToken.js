@@ -10,7 +10,6 @@ function loadUserLoginInfo() {
   } catch {
     fs.writeFileSync(TOKEN_FILE_PATH, "");
   }
-
   return content;
 }
 
@@ -20,7 +19,7 @@ function loadToken() {
     console.error(ERROR_MESSAGE);
     process.exit(1);
   }
-  return ACCESS_TOKEN;
+  return ACCESS_TOKEN.trim();
 }
 
 module.exports = loadToken;
