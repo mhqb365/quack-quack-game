@@ -96,6 +96,8 @@ Paste Token vừa copy vào file ```token.txt``` rồi lưu lại, nếu chưa c
 
 <img src="./images/7.jpg" />
 
+Chưa hiểu thì xem cách lấy Token ở đây 👉 https://vt.tiktok.com/ZSYPGvXFh/
+
 Cài đặt Tool ở file ```config.json```, giữ nguyên hoặc xem chú thích bên dưới để tùy chỉnh
 
 ```json
@@ -188,7 +190,7 @@ Gặp lỗi này thì dùm ơn, kéo lên trên đọc kỹ lại từ đầu �
 
 Lỗi này do vịt không đẻ kịp. Tự ấp thủ công thêm vịt để tránh lỗi này (vịt lỏ cũng được, tối thiểu 10 con)
 
-### Không hiển thị icon / emoji
+### Không hiển thị emoji
 
 <img src="./images/15.jpg" />
 
