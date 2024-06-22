@@ -83,12 +83,12 @@ Dùng tổ hợp phím Ctrl + Shift + B để thanh Bookmarks bar luôn luôn hi
 Chuột phải vào Bookmars bar -> tạo Bookmark mới với Name là ```Get Quack Token``` và URL là đoạn code này
 
 ```js
-javascript:var srcValue,token,copyToken,iframe=document.querySelector("iframe");iframe?window.location.hostname.includes("telegram")?open(iframe.getAttribute("src"),"_blank"):prompt("Copy this game Token",JSON.parse(localStorage.getItem("telegram-user")).state.token)&&window.close():alert("Open game first");
+javascript:var srcValue,token,copyToken,iframe=document.querySelector("iframe");function copyTextToClipboard(e){var t=document.createElement("textarea");t.textContent=e,document.body.appendChild(t),t.select(),document.execCommand("copy"),t.blur(),document.body.removeChild(t),alert("Token copied"),window.close()}iframe?window.location.hostname.includes("telegram")?open(iframe.getAttribute("src"),"_blank"):copyTextToClipboard(JSON.parse(localStorage.getItem("telegram-user")).state.token):alert("Open game first");
 ```
 
 <img src="./images/5.jpg" />
 
-Sau đó mở game lên và click vào cái Bookmark vừa tạo, một tab game mới sẽ được mở lên. Lúc này bạn click vào cái Bookmark phát nữa thì Token sẽ hiện lên và copy nó. Bấm OK thì tab game mới sẽ tự tắt đi
+Sau đó mở game lên và click vào cái Bookmark vừa tạo, một tab game mới sẽ được mở lên. Lúc này click vào cái Bookmark đó một lần nữa thì Token sẽ tự động được copy. Mở file token.txt và dán vào thôi
 
 <img src="./images/6.jpg" />
 
