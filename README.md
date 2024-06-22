@@ -110,7 +110,7 @@ Cài đặt Tool ở file ```config.json```, giữ nguyên hoặc xem chú thíc
 
 Mở Terminal / PowerShell / Cmd trong thư mục Tool (trên Windows thì đè Shift + chuột phải > Open PowerShell window here)
 
-Nhập vào Terminal dòng code ```npm install``` để cài đặt các thư viện cần thiết
+Nhập vào Terminal dòng code ```npm install``` để cài đặt các thư viện cần thiết (mỗi lần tải code về đều phải làm cái này nhé)
 
 Muốn chạy chức năng nào thì chọn dòng code tương ứng bên dưới nhập vào Terminal
 
@@ -126,7 +126,7 @@ Muốn chạy chức năng nào thì chọn dòng code tương ứng bên dướ
 
 Bạn muốn Tool chạy ngầm? ```pm2``` sẽ giúp bạn làm điều này
 
-Cài ```pm2``` bằng cách nhập vào Terminal dòng code ```npm install -g pm2``` (cài một lần duy nhất là xài luôn)
+Cài ```pm2``` bằng cách nhập vào Terminal dòng code ```npm install -g pm2``` (cài một lần duy nhất là xài hoài luôn)
 
 Chọn tính năng Tool chạy ở tham số ```args``` trong file ```ecosystem.config.js```
 
@@ -153,6 +153,14 @@ Mỗi lần chỉnh sửa trong ```ecosystem.config.js``` thì nhớ dừng Tool
 Xem có đang chạy Tool không thì nhập vào lệnh ```pm2 ls```
 
 <img src="./images/11.jpg" />
+
+## Chạy nhiều tải khoản
+
+Cái này không khuyến khích vì dễ bị ăn ban
+
+Thích thì copy ra nhiều thư mục Tool, thay Token vào, sửa tham số ```name``` trong file ```ecosystem.config.js``` thành các tên khác nhau rồi ```pm2 start```
+
+Hóa ra trước giờ ít người biết cách copy thư mục ra để chạy nhiều tài khoản, ảo thật sự 🤣
 
 ## Phần phụ
 
