@@ -88,11 +88,9 @@ javascript:var srcValue,token,copyToken,iframe=document.querySelector("iframe");
 
 <img src="./images/5.jpg" />
 
-Sau đó mở game lên và click vào cái Bookmark vừa tạo, một tab game mới sẽ được mở lên. Lúc này click vào cái Bookmark đó một lần nữa thì Token sẽ tự động được copy. Mở file token.txt và dán vào thôi
+Sau đó mở game lên và click vào cái Bookmark vừa tạo, một tab game mới sẽ được mở lên. Lúc này click vào cái Bookmark đó một lần nữa thì Token sẽ tự động được copy
 
-<img src="./images/6.jpg" />
-
-Paste Token vừa copy vào file ```token.txt``` rồi lưu lại, nếu chưa có file thì tạo file mới (chuột phải -> New -> Text Document -> token.txt)
+Paste Token vừa copy vào file ```token.txt``` rồi lưu lại. Nếu chưa có file thì tạo file mới (chuột phải -> New -> Text Document -> token.txt)
 
 <img src="./images/7.jpg" />
 
