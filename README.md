@@ -1,16 +1,18 @@
-# Quack Quack Game Tool
+# Quack Quack Game Tool - v5 beta
 
-<img src="./images/1.jpg" />
+Chưa xong đâu mà đòi xài, đổi cấu trúc code hết rồi, nếu đọc hiểu được code thì có thể xài được 😅
 
-Đây là công cụ tui làm ra chỉ để thử sức cũng như học hỏi thêm về code nên nó rất đơn giản và đôi khi có nhiều lỗi
+## Giới thiệu
 
-Vì công việc của tui là sửa laptop chứ không phải làm về code 👉 https://www.tiktok.com/@mhqb365
+Tool cho Quack Quack Game
 
-Windows / Mac / Linux / Android đều dùng được miễn cài được NodeJS 👉 https://nodejs.org/en/download/prebuilt-installer
+Windows / Mac / Linux đều dùng được miễn cài được NodeJS 👉 https://nodejs.org/en/download/prebuilt-installer
 
-Mọi người có hứng thú với con game vô tri này thì tham gia ở đây 👉 https://t.me/quackquack_game_bot?start=6hn8Xrp7DK
+Người viết Tool là thợ sửa laptop 👉 https://tiktok.com/@mhqb365
 
 Link Tool chính thức 👉 https://j2c.cc/quack
+
+Mọi người có hứng thú với con game vô tri này thì tham gia ở đây 👉 https://t.me/quackquack_game_bot?start=6hn8Xrp7DK
 
 ## Tuyên bố miễn trừ trách nhiệm
 
@@ -34,7 +36,7 @@ Ngẫu nhiên chọn vị trí tổ rơm để lụm hoặc ấp trứng
 
 Ngẫu nhiên thời gian lụm hoặc ấp trứng. Từ 1 đến maxSleepTime trong file ```config.json``` (đơn vị: giây)
 
-Tool chạy hoàn toàn độc lập nhưng sẽ xung đột tính năng lụm & ấp trứng với CFO
+Tool chạy hoàn toàn độc lập nhưng nếu bạn bật CFO thì sẽ xung đột với tính năng lụm trứng & ấp trứng
 
 Đang cập nhật thêm cái gì đó...
 
@@ -56,7 +58,7 @@ Vịt có tổng điểm cao hơn thì xịn hơn
 
 Ví dụ vịt RARE + RARE + RARE sẽ bằng điểm với vịt LEGENDARY + RARE + COMMON
 
-Để ấp được vịt nhiều điểm thì bạn cần có nhiều tổ rơm để tăng tỉ lệ ra trứng hiếm, xem lại bảng độ hiếm
+Để ấp được vịt nhiều điểm thì bạn cần có nhiều tổ rơm để tăng tỉ lệ ra trứng hiếm (xem lại bảng độ hiếm)
 
 Khi ấp được vịt lỏ thì Tool sẽ tự động xóa luôn
 
@@ -72,93 +74,7 @@ Máy tính cần hiện đuôi file để thao tác dễ hơn (hiện đuôi fil
 
 <img src="./images/4.jpg" />
 
-Cài NodeJS chưa? Chưa thì kéo lên trên lấy link tải về cài vào (cài một lần duy nhất là xài luôn)
-
-Tải Tool về, thấy cái nút (<> Code) màu xanh lá ở trên hem? Click vào đó để Download ZIP về, giải nén rồi mở thư mục vừa giải nén
-
-Đăng nhập Telegram trên trình duyệt web (Chrome, Edge, v.v..)
-
-Dùng tổ hợp phím Ctrl + Shift + B để thanh Bookmarks bar luôn luôn hiển thị
-
-Chuột phải vào Bookmars bar -> tạo Bookmark mới với Name là ```Get Quack Token``` và URL là đoạn code này
-
-```js
-javascript:var srcValue,token,copyToken,iframe=document.querySelector("iframe");function copyTextToClipboard(e){var t=document.createElement("textarea");t.textContent=e,document.body.appendChild(t),t.select(),document.execCommand("copy"),t.blur(),document.body.removeChild(t),alert("Token copied"),window.close()}iframe?window.location.hostname.includes("telegram")?open(iframe.getAttribute("src"),"_blank"):copyTextToClipboard(JSON.parse(localStorage.getItem("telegram-user")).state.token):alert("Open game first");
-```
-
-<img src="./images/5.jpg" />
-
-Sau đó mở game lên và click vào cái Bookmark vừa tạo, một tab game mới sẽ được mở lên. Lúc này click vào cái Bookmark đó một lần nữa thì Token sẽ tự động được copy
-
-Paste Token vừa copy vào file ```token.txt``` rồi lưu lại. Nếu chưa có file thì tạo file mới (chuột phải -> New -> Text Document -> token.txt)
-
-<img src="./images/7.jpg" />
-
-Chưa hiểu thì xem cách lấy Token ở đây 👉 https://vt.tiktok.com/ZSYPGvXFh/
-
-Cài đặt Tool ở file ```config.json```, giữ nguyên hoặc xem chú thích bên dưới để tùy chỉnh
-
-```json
-{
-  "nest": 3, // số tổ rơm bạn đang có, nếu có nhiều hơn thì thay số vào
-  "maxSleepTime": 3, // thời gian nghỉ tối đa giữa mỗi lần lụm trứng, đơn vị: giây
-  "retryCount": 86400, // số lần thử lại khi mất kết nối, quá số lần sẽ dừng Tool
-}
-```
-
-Mở Terminal / PowerShell / Cmd trong thư mục Tool (trên Windows thì đè Shift + chuột phải > Open PowerShell window here)
-
-Nhập vào Terminal dòng code ```npm install``` để cài đặt các thư viện cần thiết (mỗi lần tải code về đều phải làm cái này nhé)
-
-Muốn chạy chức năng nào thì chọn dòng code tương ứng bên dưới nhập vào Terminal
-
-| Code | Chức năng |
-|---|---|
-| ```node quack``` | lụm tất cả trứng & ZỊT ZÀNG |
-| ```node quack 1``` | chỉ lụm ZỊT ZÀNG |
-| ```node quack 2``` | lụm trứng lỏ & ấp trứng hiếm & lụm ZỊT ZÀNG |
-
-<img src="./images/8.jpg" />
-
-## Chạy Tool không cần treo Terminal
-
-Bạn muốn Tool chạy ngầm? ```pm2``` sẽ giúp bạn làm điều này
-
-Cài ```pm2``` bằng cách nhập vào Terminal dòng code ```npm install -g pm2``` (cài một lần duy nhất là xài hoài luôn)
-
-Chọn tính năng Tool chạy ở tham số ```args``` trong file ```ecosystem.config.js```
-
-| Tham số | Chức năng |
-|---|---|
-| args: "" | tương ứng với node quack |
-| args: "1" | tương ứng với node quack 1 |
-| args: "2" | tương ứng với node quack 2 |
-
-Chạy Tool thì nhập vào Terminal dòng code này ```pm2 start```
-
-<img src="./images/9.jpg" />
-
-Xem Tool chạy bằng cách nhập vào Terminal dòng code này ```pm2 log quack```
-
-<img src="./images/10.jpg" />
-
-Bấm tổ hợp phím Ctrl + C để thoát xem Tool chạy
-
-Dừng Tool thì nhập vào Terminal dòng code này ```pm2 stop quack```
-
-Mỗi lần chỉnh sửa trong ```ecosystem.config.js``` thì nhớ dừng Tool, sửa xong mới chạy lại
-
-Xem có đang chạy Tool không thì nhập vào lệnh ```pm2 ls```
-
-<img src="./images/11.jpg" />
-
-## Chạy nhiều tải khoản
-
-Cái này không khuyến khích vì dễ bị ăn ban
-
-Thích thì copy ra nhiều thư mục Tool, thay Token vào, sửa tham số ```name``` trong file ```ecosystem.config.js``` thành các tên khác nhau rồi ```pm2 start```
-
-Hóa ra trước giờ ít người biết cách copy thư mục ra để chạy nhiều tài khoản, ảo thật sự 🤣
+Chưa có hướng dẫn cho v5 beta này đâu
 
 ## Phần phụ
 
