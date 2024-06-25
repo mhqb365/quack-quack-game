@@ -29,7 +29,10 @@ function initConfig() {
 
   setData("token.json", JSON.stringify(data));
 
-  console.log("[ INFO ] Make token.json success - edit it for run");
+  console.log("[ INFO ] Make 'token.json' success");
+  console.log(
+    "[ INFO ] Edit 'token.json' or run 'node quack' now with default config"
+  );
 }
 
 initConfig();
