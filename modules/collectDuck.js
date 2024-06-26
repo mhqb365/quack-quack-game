@@ -3,27 +3,28 @@ const sleep = require("./sleep");
 const config = require("../config.json");
 const addLog = require("./addLog");
 
-async function collectDuck(token, ua, nest_id) {
+async function collectDuck(token, ua, nest_id, proxy) {
   let retry = 0;
   let data = null;
   while (retry < config.retryCount) {
     if (!!data) {
       break;
     }
-    data = await collectDuckInternal(token, ua, nest_id);
+    data = await collectDuckInternal(token, ua, nest_id, proxy);
     retry++;
   }
 
   return data;
 }
 
-async function collectDuckInternal(token, ua, nest_id) {
+async function collectDuckInternal(token, ua, nest_id, proxy) {
   try {
     const response = await postAction(
       token,
       "nest/collect-duck",
       "nest_id=" + nest_id,
-      ua
+      ua,
+      proxy
     );
     return response.data;
   } catch (error) {

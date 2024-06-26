@@ -3,23 +3,23 @@ const sleep = require("./sleep");
 const config = require("../config.json");
 const addLog = require("./addLog");
 
-async function getBalance(token, ua) {
+async function getBalance(token, ua, proxy) {
   let retry = 0;
   let data = null;
   while (retry < config.retryCount) {
     if (!!data) {
       break;
     }
-    data = await getBalanceInternal(token, ua);
+    data = await getBalanceInternal(token, ua, proxy);
     retry++;
   }
 
   return data;
 }
 
-async function getBalanceInternal(token, ua) {
+async function getBalanceInternal(token, ua, proxy) {
   try {
-    const response = await getAction(token, "balance/get", ua);
+    const response = await getAction(token, "balance/get", ua, proxy);
     return response.data.data.data;
   } catch (error) {
     if (error.response) {

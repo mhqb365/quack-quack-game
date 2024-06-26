@@ -1,3 +1,4 @@
+const { default: axios } = require("axios");
 const fs = require("fs");
 
 function getData(filename) {
@@ -18,8 +19,26 @@ function convertSToMS(seconds) {
   return `${formattedMinutes}:${formattedSeconds}`;
 }
 
+async function checkProxy(proxy) {
+  try {
+    // console.log(proxy);
+    const response = await axios({
+      method: "GET",
+      url: "https://api.myip.com",
+      proxy,
+    });
+    const ip = response.data?.ip;
+    const cc = response.data?.cc;
+    return `${ip.slice(0, 2)}...${ip.slice(-3)} - ${cc}`;
+  } catch (err) {
+    console.log("err checkip: ", err);
+    return null;
+  }
+}
+
 module.exports = {
   getData,
   setData,
   convertSToMS,
+  checkProxy,
 };

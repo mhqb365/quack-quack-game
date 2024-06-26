@@ -3,23 +3,29 @@ const sleep = require("./sleep");
 const config = require("../config.json");
 const addLog = require("./addLog");
 
-async function claimGoldenDuck(token, ua) {
+async function claimGoldenDuck(token, ua, proxy) {
   let retry = 0;
   let data = null;
   while (retry < config.retryCount) {
     if (!!data) {
       break;
     }
-    data = await claimGoldenDuckInternal(token, ua);
+    data = await claimGoldenDuckInternal(token, ua, proxy);
     retry++;
   }
 
   return data;
 }
 
-async function claimGoldenDuckInternal(token, ua) {
+async function claimGoldenDuckInternal(token, ua, proxy) {
   try {
-    const response = await postAction(token, "golden-duck/claim", "type=1", ua);
+    const response = await postAction(
+      token,
+      "golden-duck/claim",
+      "type=1",
+      ua,
+      proxy
+    );
     return response.data;
   } catch (error) {
     if (error.response) {

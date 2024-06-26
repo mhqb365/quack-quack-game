@@ -3,49 +3,33 @@ const config = require("../config.json");
 const addLog = require("./addLog");
 const sleep = require("./sleep");
 
-let isErrorOccured = false;
-let maxNest = config.nest;
-
-if (maxNest < 3) maxNest = 3;
-if (maxNest > 9) maxNest = 9;
-// console.log(maxNest);
-
-async function getListReload(token, ua, new_game = false) {
+async function getListReload(token, ua, new_game, proxy) {
   let retry = 0;
   let data = null;
   while (retry < config.retryCount) {
     if (!!data) {
       break;
     }
-    data = await getListReloadInternal(
-      token,
-      ua,
-      isErrorOccured ? true : new_game
-    );
+    data = await getListReloadInternal(token, ua, new_game, proxy);
     retry++;
   }
 
   return data;
 }
 
-async function getListReloadInternal(token, ua, new_game) {
+async function getListReloadInternal(token, ua, new_game, proxy) {
   try {
+    const endpoint = new_game ? "nest/list" : "nest/list-reload";
+    // console.log(new_game, endpoint);
+
     let listNests = [];
     let listDucks = [];
 
-    let data = await getListReloadInternalCallAPI(token, ua, new_game);
-    isErrorOccured = false;
+    const response = await getAction(token, endpoint, ua, proxy);
 
-    data.data.nest.forEach((n) => {
-      if (n.type_egg) listNests.push(n);
-    });
+    response.data.data.nest.forEach((n) => listNests.push(n));
 
-    if (listNests.length < maxNest) {
-      data = await getListReloadInternalCallAPI(token, ua, true);
-    }
-
-    isErrorOccured = false;
-    listDucks = data.data.duck;
+    listDucks = response.data.data.duck;
 
     return { listNests, listDucks };
   } catch (error) {
@@ -89,13 +73,6 @@ async function getListReloadInternal(token, ua, new_game) {
       return null;
     }
   }
-}
-
-async function getListReloadInternalCallAPI(token, ua, new_game = false) {
-  const endpoint = new_game ? "nest/list" : "nest/list-reload";
-  // console.log(new_game, endpoint);
-  const { data } = await getAction(token, endpoint, ua);
-  return data;
 }
 
 module.exports = getListReload;

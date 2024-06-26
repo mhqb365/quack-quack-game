@@ -3,23 +3,23 @@ const sleep = require("./sleep");
 const config = require("../config.json");
 const addLog = require("./addLog");
 
-async function getGoldenDuckInfo(token, ua) {
+async function getGoldenDuckInfo(token, ua, proxy) {
   let retry = 0;
   let data = null;
   while (retry < config.retryCount) {
     if (!!data) {
       break;
     }
-    data = await getGoldenDuckInfoInternal(token, ua);
+    data = await getGoldenDuckInfoInternal(token, ua, proxy);
     retry++;
   }
 
   return data;
 }
 
-async function getGoldenDuckInfoInternal(token, ua) {
+async function getGoldenDuckInfoInternal(token, ua, proxy) {
   try {
-    const response = await getAction(token, "golden-duck/info", ua);
+    const response = await getAction(token, "golden-duck/info", ua, proxy);
     // console.log(data);
     return response.data;
   } catch (error) {

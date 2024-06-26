@@ -3,28 +3,29 @@ const sleep = require("./sleep");
 const config = require("../config.json");
 const addLog = require("./addLog");
 
-async function layEgg(token, ua, nest_id, duck_id) {
+async function layEgg(token, ua, nest_id, duck_id, proxy) {
   let retry = 0;
   let data = null;
   while (retry < config.retryCount) {
     if (!!data) {
       break;
     }
-    data = await layEggInternal(token, ua, nest_id, duck_id);
+    data = await layEggInternal(token, ua, nest_id, duck_id, proxy);
     retry++;
   }
 
   return data;
 }
 
-async function layEggInternal(token, ua, nest_id, duck_id) {
+async function layEggInternal(token, ua, nest_id, duck_id, proxy) {
   // console.log(nest_id, duck_id);
   try {
     const response = await postAction(
       token,
       "nest/lay-egg",
       "nest_id=" + nest_id + "&duck_id=" + duck_id,
-      ua
+      ua,
+      proxy
     );
     return response.data;
   } catch (error) {

@@ -3,23 +3,23 @@ const sleep = require("./sleep");
 const config = require("../config.json");
 const addLog = require("./addLog");
 
-async function getMaxDuck(token, ua) {
+async function getMaxDuck(token, ua, proxy) {
   let retry = 0;
   let data = null;
   while (retry < config.retryCount) {
     if (!!data) {
       break;
     }
-    data = await getMaxDuckInternal(token, ua);
+    data = await getMaxDuckInternal(token, ua, proxy);
     retry++;
   }
 
   return data;
 }
 
-async function getMaxDuckInternal(token, ua) {
+async function getMaxDuckInternal(token, ua, proxy) {
   try {
-    const response = await getAction(token, "nest/max-duck", ua);
+    const response = await getAction(token, "nest/max-duck", ua, proxy);
     // console.log("getMaxDuck", response);
     return response.data;
   } catch (error) {

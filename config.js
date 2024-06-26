@@ -12,6 +12,7 @@ function initConfig() {
       _id: index,
       run: 0,
       token: account,
+      nest: 3,
       balance: {
         egg: 0,
         pet: 0,
@@ -23,6 +24,8 @@ function initConfig() {
       goldenDuck: 0,
       nextGoldenDuck: 0,
       myInterval: null,
+      proxy: null,
+      myProxy: null,
     });
   });
   // console.log(data);
