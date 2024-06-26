@@ -5,7 +5,7 @@ function getData(filename) {
   return fs.readFileSync(filename, "utf8");
 }
 
-function setData(filename, data) {
+async function setData(filename, data) {
   return fs.writeFileSync(filename, data);
 }
 
@@ -19,6 +19,10 @@ function convertSToMS(seconds) {
   return `${formattedMinutes}:${formattedSeconds}`;
 }
 
+function showToken(token) {
+  return `${token.slice(0, 3)}...${token.slice(-4)}`;
+}
+
 async function checkProxy(proxy) {
   try {
     // console.log(proxy);
@@ -29,7 +33,11 @@ async function checkProxy(proxy) {
     });
     const ip = response.data?.ip;
     const cc = response.data?.cc;
-    return `${ip.slice(0, 2)}...${ip.slice(-3)} - ${cc}`;
+
+    const ipText = ip.split(".");
+    // console.log(ipText);
+
+    return `${ipText[0]}.${ipText[1]}...${ipText[3]} - ${cc}`;
   } catch (err) {
     console.log("err checkip: ", err);
     return null;
@@ -40,5 +48,6 @@ module.exports = {
   getData,
   setData,
   convertSToMS,
+  showToken,
   checkProxy,
 };
