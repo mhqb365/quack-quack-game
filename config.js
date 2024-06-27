@@ -1,4 +1,4 @@
-const { getData, setData } = require("./utils");
+const { getData, setData } = require("./modules/utils");
 
 function initConfig() {
   let data = [];
