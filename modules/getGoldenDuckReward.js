@@ -1,12 +1,12 @@
 const getAction = require("../actions/get");
 const sleep = require("./sleep");
-const config = require("../config.json");
+const app = require("../app.json");
 const addLog = require("./addLog");
 
 async function getGoldenDuckReward(token, ua, proxy) {
   let retry = 0;
   let data = null;
-  while (retry < config.retryCount) {
+  while (retry < app.retryCount) {
     if (!!data) {
       break;
     }

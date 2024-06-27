@@ -1,12 +1,12 @@
 const postAction = require("../actions/post");
 const sleep = require("./sleep");
-const config = require("../config.json");
+const app = require("../app.json");
 const addLog = require("./addLog");
 
 async function collectEgg(token, ua, nest_id, proxy) {
   let retry = 0;
   let data = null;
-  while (retry < config.retryCount) {
+  while (retry < app.retryCount) {
     if (!!data) {
       break;
     }

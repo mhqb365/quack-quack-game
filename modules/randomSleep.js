@@ -1,11 +1,11 @@
-const config = require("../config.json");
+const app = require("../app.json");
 
 function getRndInteger(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 function randomSleep() {
-  let max = config.maxSleepTime;
+  let max = app.maxSleepTime;
   if (max < 1) max = 1;
   const sec = getRndInteger(1, max);
   // console.log(`sleep ${sec}s`);

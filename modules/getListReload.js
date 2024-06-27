@@ -1,12 +1,12 @@
 const getAction = require("../actions/get");
-const config = require("../config.json");
+const app = require("../app.json");
 const addLog = require("./addLog");
 const sleep = require("./sleep");
 
 async function getListReload(token, ua, new_game, proxy) {
   let retry = 0;
   let data = null;
-  while (retry < config.retryCount) {
+  while (retry < app.retryCount) {
     if (!!data) {
       break;
     }
