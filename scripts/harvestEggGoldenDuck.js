@@ -24,6 +24,8 @@ const log = require("log-with-statusbar")({
   },
 });
 
+let timer = null;
+
 const RARE_EGG = [
   undefined,
   "Common *",
@@ -349,7 +351,9 @@ async function harvestEggGoldenDuckInternal(account, listNests, listDucks) {
   collectFromList(account, listNests, listDucks);
 }
 
-async function harvestEggGoldenDuck(account, new_game = false) {
+async function harvestEggGoldenDuck(account, new_game = false, timerInstance) {
+  if (timerInstance) timer = timerInstance;
+
   let listNests = [];
   let listDucks = [];
   if (!account.cfo) {
@@ -365,22 +369,30 @@ async function harvestEggGoldenDuck(account, new_game = false) {
   await sleep(0.5);
 
   console.clear();
-  let statusText = ["[ Quack Quack Game Tool ]", "Link Tool: j2c.cc/quack", ""];
+  let statusText = [
+    "[ Quack Quack Game Tool ]",
+    "Link Tool [ j2c.cc/quack ]",
+    `Run time [ ${timer
+      .getTimeValues()
+      .toString(["days", "hours", "minutes", "seconds"])} ]`,
+    "",
+  ];
   let tokens = JSON.parse(getData("./config.json"));
   // console.log(tokens);
-  tokens.forEach((token) => {
+  tokens.forEach((token, index) => {
     statusText.push(
-      `Account: [ ${showToken(token.token)} ] [ ${token.proxyText} ]`
+      `Account ${index + 1} [ ${showToken(token.token)} ] [ ${
+        token.proxyText
+      } ]`
     );
     if (token.showBalance)
       statusText.push(
-        `Balance: [ ${Number(token.balance.egg).toFixed(2)} EGG 🥚 ] [ ${Number(
+        `Balance [ ${Number(token.balance.egg).toFixed(2)} EGG 🥚 ] [ ${Number(
           token.balance.pet
         ).toFixed(2)} PET 🐸 ]`
       );
-
     statusText.push(
-      `Collected: [ ${Number(token.collected.egg).toFixed(
+      `Collected [ ${Number(token.collected.egg).toFixed(
         2
       )} EGG 🥚 ] [ ${Number(token.collected.pet).toFixed(2)} PET 🐸 ] [ ${
         token.goldenDuck
@@ -388,8 +400,8 @@ async function harvestEggGoldenDuck(account, new_game = false) {
     );
     statusText.push("");
   });
-
   log.setStatusBarText(statusText);
+
   harvestEggGoldenDuckInternal(account, listNests, listDucks);
 }
 

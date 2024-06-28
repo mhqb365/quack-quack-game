@@ -14,10 +14,14 @@ const log = require("log-with-statusbar")({
 
 let statusText = [
   "[ Quack Quack Game Tool ]",
-  "Link Tool: [ j2c.cc/quack ]",
+  "Link Tool [ j2c.cc/quack ]",
+  "Run time [ 00:00:00:00 ]",
   "",
 ];
 log.setStatusBarText(statusText);
+
+const Timer = require("easytimer.js").Timer;
+let timerInstance = new Timer();
 
 let proxys = null;
 try {
@@ -31,11 +35,20 @@ try {
 // console.log(proxys);
 
 try {
+  timerInstance.start();
   const tokens = require("./config.json");
   // console.log(tokens);
   tokens.forEach(async (token) => {
     // console.log(token);
-
+    token.balance = {
+      egg: 0,
+      pet: 0,
+    };
+    token.collected = {
+      egg: 0,
+      pet: 0,
+    };
+    token.goldenDuck = 0;
     token.ua = randomUseragent.getRandom((ua) => {
       return ua.browserName === "Chrome";
     });
@@ -79,7 +92,7 @@ try {
         );
       } else token.cfo = false;
 
-      harvestEggGoldenDuck(token);
+      harvestEggGoldenDuck(token, true, timerInstance);
     }
 
     if (token.mode === 1) {
