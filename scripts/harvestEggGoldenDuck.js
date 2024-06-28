@@ -23,7 +23,6 @@ const log = require("log-with-statusbar")({
     position: "top",
   },
 });
-log.setStatusBarText([]);
 
 const RARE_EGG = [
   undefined,
@@ -163,7 +162,7 @@ async function collectFromListInternal(account, listNests, listDucks) {
       } else {
         const rareEgg = RARE_EGG[nest.type_egg];
         const amountText = `+${AMOUNT_COLLECT[nest.type_egg]}`;
-        msg = `${showToken(account.token)} | ${account.myProxy} | NEST 🌕 ${
+        msg = `${showToken(account.token)} | NEST 🌕 ${
           nest.id
         } - EGG 🥚 ${rareEgg} | collected (${amountText})`;
         console.log(msg);
@@ -194,9 +193,7 @@ async function collectFromListInternal(account, listNests, listDucks) {
     );
 
     console.log(
-      `${showToken(account.token)} | ${account.myProxy} | NEST 🌕 ${
-        nest.id
-      } | collected (DUCK 🦆)`
+      `${showToken(account.token)} | NEST 🌕 ${nest.id} | collected (DUCK 🦆)`
     );
 
     const layEggData = await layEgg(
@@ -287,11 +284,9 @@ async function collectGoldenDuck(account, listNests, listDucks) {
         await sleep(0.5);
       }
 
-      msg = `${showToken(account.token)} | ${
-        account.myProxy
-      } | G.DUCK 🐥 | ${rewardText}`;
+      msg = `${showToken(account.token)} | G.DUCK 🐥 appears | ${rewardText}`;
       console.log(msg);
-      msg = `${showToken(account.token)} | ${account.myProxy} | ${rewardText}`;
+      msg = `${showToken(account.token)} | ${rewardText}`;
       addLog(msg, "golden");
 
       collectFromList(account, listNests, listDucks);
@@ -339,18 +334,16 @@ async function harvestEggGoldenDuckInternal(account, listNests, listDucks) {
 
     const nestIds = listNests.map((i) => i.id);
     console.log(
-      `${showToken(account.token)} | ${account.myProxy} | ${
-        listNests.length
-      } NEST 🌕`,
+      `${showToken(account.token)} | ${listNests.length} NEST 🌕`,
       nestIds
     );
   }
 
   if (account.nextGoldenDuck !== 0)
     console.log(
-      `${showToken(account.token)} | ${
-        account.myProxy
-      } | G.DUCK 🐥 appears after ${convertSToMS(account.nextGoldenDuck)}`
+      `${showToken(account.token)} | G.DUCK 🐥 appears after ${convertSToMS(
+        account.nextGoldenDuck
+      )}`
     );
 
   collectFromList(account, listNests, listDucks);
@@ -371,7 +364,32 @@ async function harvestEggGoldenDuck(account, new_game = false) {
   }
   await sleep(0.5);
 
-  // console.clear();
+  console.clear();
+  let statusText = ["[ Quack Quack Game Tool ]", "Link Tool: j2c.cc/quack", ""];
+  let tokens = JSON.parse(getData("./config.json"));
+  // console.log(tokens);
+  tokens.forEach((token) => {
+    statusText.push(
+      `Account: [ ${showToken(token.token)} ] [ ${token.proxyText} ]`
+    );
+    if (token.showBalance)
+      statusText.push(
+        `Balance: [ ${Number(token.balance.egg).toFixed(2)} EGG 🥚 ] [ ${Number(
+          token.balance.pet
+        ).toFixed(2)} PET 🐸 ]`
+      );
+
+    statusText.push(
+      `Collected: [ ${Number(token.collected.egg).toFixed(
+        2
+      )} EGG 🥚 ] [ ${Number(token.collected.pet).toFixed(2)} PET 🐸 ] [ ${
+        token.goldenDuck
+      } G.DUCK 🐥 ]`
+    );
+    statusText.push("");
+  });
+
+  log.setStatusBarText(statusText);
   harvestEggGoldenDuckInternal(account, listNests, listDucks);
 }
 

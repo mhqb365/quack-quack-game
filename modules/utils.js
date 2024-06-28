@@ -20,7 +20,7 @@ function convertSToMS(seconds) {
 }
 
 function showToken(token) {
-  return `${token.slice(0, 3)}..${token.slice(-4)}`;
+  return `${token.slice(0, 3)}...${token.slice(-5)}`;
 }
 
 async function checkProxy(proxy) {
@@ -42,8 +42,8 @@ async function checkProxy(proxy) {
     // console.log(ipText);
     const ipShow =
       ipv === 4
-        ? `${ipText[0]}.${ipText[1]}..${ipText[3]} - ${cc}`
-        : `${ipText[0]}:${ipText[1]}..${ipText[7]} - ${cc}`;
+        ? `${ipText[0]}.${ipText[1]}...${ipText[3]} - ${cc}`
+        : `${ipText[0]}:${ipText[1]}...${ipText[7]} - ${cc}`;
 
     return ipShow;
   } catch (error) {

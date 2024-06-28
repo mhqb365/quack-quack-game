@@ -33,6 +33,7 @@ async function initConfig() {
           egg: 0,
           pet: 0,
         },
+        showBalance: true,
         collected: {
           egg: 0,
           pet: 0,
