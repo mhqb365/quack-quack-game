@@ -1,6 +1,6 @@
 const axios = require("axios");
 
-function getAction(token, enpoint, ua) {
+function getAction(token, enpoint, ua, proxy) {
   return axios({
     method: "GET",
     url: "https://api.quackquack.games/" + enpoint,
@@ -10,6 +10,7 @@ function getAction(token, enpoint, ua) {
       authorization: "Bearer " + token,
       "User-Agent": ua,
     },
+    proxy,
   });
 }
 

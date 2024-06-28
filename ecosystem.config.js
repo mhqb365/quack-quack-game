@@ -3,7 +3,6 @@ module.exports = {
     {
       name: "quack",
       script: "./quack.js",
-      args: "",
     },
   ],
 };

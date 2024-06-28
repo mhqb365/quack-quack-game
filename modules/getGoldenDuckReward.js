@@ -1,25 +1,25 @@
 const getAction = require("../actions/get");
 const sleep = require("./sleep");
-const config = require("../config.json");
+const app = require("../app.json");
 const addLog = require("./addLog");
 
-async function getGoldenDuckReward(token, ua) {
+async function getGoldenDuckReward(token, ua, proxy) {
   let retry = 0;
   let data = null;
-  while (retry < config.retryCount) {
+  while (retry < app.retryCount) {
     if (!!data) {
       break;
     }
-    data = await getGoldenDuckRewardInternal(token, ua);
+    data = await getGoldenDuckRewardInternal(token, ua, proxy);
     retry++;
   }
 
   return data;
 }
 
-async function getGoldenDuckRewardInternal(token, ua) {
+async function getGoldenDuckRewardInternal(token, ua, proxy) {
   try {
-    const response = await getAction(token, "golden-duck/reward", ua);
+    const response = await getAction(token, "golden-duck/reward", ua, proxy);
     return response.data;
   } catch (error) {
     if (error.response) {

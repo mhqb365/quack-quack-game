@@ -1,16 +1,18 @@
-# Quack Quack Game Tool
+# Quack Quack Game Tun
 
-<img src="./images/1.jpg" />
+## Giới thiệu
 
-Đây là công cụ tui làm ra chỉ để thử sức cũng như học hỏi thêm về code nên nó rất đơn giản và đôi khi có nhiều lỗi
+Tun (Tool) tự động cho Quack Quack Game
 
-Vì công việc của tui là sửa laptop chứ không phải làm về code 👉 https://www.tiktok.com/@mhqb365
+Link tun chính thức 👉 https://j2c.cc/quack
 
-Windows / Mac / Linux / Android đều dùng được miễn cài được NodeJS 👉 https://nodejs.org/en/download/prebuilt-installer
+Windows / Mac / Linux đều dùng được miễn cài được NodeJS
 
-Mọi người có hứng thú với con game vô tri này thì tham gia ở đây 👉 https://t.me/quackquack_game_bot?start=6hn8Xrp7DK
+Người viết tun là thợ sửa laptop 👉 https://tiktok.com/@mhqb365
 
-Link Tool chính thức 👉 https://j2c.cc/quack
+Mọi người có hứng thú với con game vô tri này thì tham gia link này 👉 https://t.me/quackquack_game_bot?start=6hn8Xrp7DK
+
+Tìm hiểu về game ở đây 👉 https://whitepaper.quackquack.games
 
 ## Tuyên bố miễn trừ trách nhiệm
 
@@ -18,186 +20,99 @@ Tui (mhqb365) là chủ sở hữu của những đoạn code trên, tuyên bố
 
 Bạn có quyền sử dụng nó tùy ý, tuy nhiên xin lưu ý rằng trong mọi trường hợp, khi bạn sử dụng những đoạn code trên cho những mục đích xấu, sửa đổi hoặc những việc tương tự nhằm mục đích gây hại cho những cá nhân, tổ chức khác, bạn sẽ phải chịu trách nhiệm cho những việc đó. Tôi sẽ không phải chịu bất cứ trách nhiệm gì từ việc này
 
-Chúc bạn sử dụng Tool vui vẻ
+Chúc bạn sử dụng tun vui vẻ
 
 ## Tính năng
 
 Tự động lụm trứng
 
-Tự động lụm ZỊT ZÀNG (cái con bạch tuột mỏ vịt lâu lâu xuất hiện, vì lý do bảo mật nên không lụm được TON nhé)
+Tự động lụm ZỊT ZÀNG nhưngkhông lụm được TON
 
-Tự động ấp trứng hiếm
+Chạy nhiều tài khoản cùng lúc
 
-Có thể tùy chọn chức năng để chạy Tool
+Dùng proxy cho các tài khoản
 
-Ngẫu nhiên chọn vị trí tổ rơm để lụm hoặc ấp trứng
+## Lưu ý cần biết
 
-Ngẫu nhiên thời gian lụm hoặc ấp trứng. Từ 1 đến maxSleepTime trong file ```config.json``` (đơn vị: giây)
-
-Tool chạy hoàn toàn độc lập nhưng sẽ xung đột tính năng lụm & ấp trứng với CFO
-
-Đang cập nhật thêm cái gì đó...
-
-## Tiêu chí ấp trứng
-
-Khi chạy chức năng ấp trứng thì Tool sẽ tự chọn trứng hiếm nhất để ấp. Là loại trứng có rate thấp nhất theo bảng độ hiếm này
-
-<img src="./images/2.jpg" />
-
-Khi ấp được vịt thì dựa vào các thành phần của vịt để tính điểm
-
-<img src="./images/3.jpg" />
-
-- LEGENDARY : 3 điểm
-- RARE : 2 điểm
-- COMMON : 1 điểm
-
-Vịt có tổng điểm cao hơn thì xịn hơn
-
-Ví dụ vịt RARE + RARE + RARE sẽ bằng điểm với vịt LEGENDARY + RARE + COMMON
-
-Để ấp được vịt nhiều điểm thì bạn cần có nhiều tổ rơm để tăng tỉ lệ ra trứng hiếm, xem lại bảng độ hiếm
-
-Khi ấp được vịt lỏ thì Tool sẽ tự động xóa luôn
-
-Khi chạy chức năng ấp trứng thì Tool sẽ tự động xóa đi 1 con vịt lỏ nhất để nhường chổ khi FARM đầy
-
-Tool sẽ tự động tắt tính năng ấp trứng khi FARM vịt max điểm
-
-Nói chung cái tính năng ấp trứng này là hoàn toàn tự động, tiêu chí là tạo FARM toàn vịt xịn
+Bạn phải ấp thủ công đủ tối thiểu 15 con vịt rồi mới chạy tun
 
 ## Cách dùng
 
 Máy tính cần hiện đuôi file để thao tác dễ hơn (hiện đuôi file trên Windows bằng cách mở Start menu -> tìm File Explorer Options -> View -> bỏ tick Hide extentions for known file types -> OK)
 
-<img src="./images/4.jpg" />
+Cài NodeJS trước 👉 https://nodejs.org/en/download/prebuilt-installer
 
-Cài NodeJS chưa? Chưa thì kéo lên trên lấy link tải về cài vào (cài một lần duy nhất là xài luôn)
+Tải code về -> giải nén ra folder
 
-Tải Tool về, thấy cái nút (<> Code) màu xanh lá ở trên hem? Click vào đó để Download ZIP về, giải nén rồi mở thư mục vừa giải nén
+Mở Terminal / PowerShell / Cmd trong folder vừa giải nén được
 
-Đăng nhập Telegram trên trình duyệt web (Chrome, Edge, v.v..)
+Bỏ token game vào file ```token.txt```, mỗi dòng một token nếu chạy nhiều tài khoản
 
-Dùng tổ hợp phím Ctrl + Shift + B để thanh Bookmarks bar luôn luôn hiển thị
+Nếu có nhiều tài khoản thì thêm proxy vào file ```proxy.txt```, mỗi dòng một proxy
 
-Chuột phải vào Bookmars bar -> tạo Bookmark mới với Name là ```Get Quack Token``` và URL là đoạn code này
+Cấu trúc mỗi proxy như này 👉 host:port:username:password
 
+Ví dụ: 192.168.10.215:8080:admin:p@ssword
+
+Proxy ở dòng thứ mấy thì sẽ dùng cho token ở dòng tương ứng
+
+Code tạo Bookmar để lấy token game
 ```js
 javascript:var srcValue,token,copyToken,iframe=document.querySelector("iframe");function copyTextToClipboard(e){var t=document.createElement("textarea");t.textContent=e,document.body.appendChild(t),t.select(),document.execCommand("copy"),t.blur(),document.body.removeChild(t),alert("Token copied"),window.close()}iframe?window.location.hostname.includes("telegram")?open(iframe.getAttribute("src"),"_blank"):copyTextToClipboard(JSON.parse(localStorage.getItem("telegram-user")).state.token):alert("Open game first");
 ```
 
-<img src="./images/5.jpg" />
+## Chạy tun
 
-Sau đó mở game lên và click vào cái Bookmark vừa tạo, một tab game mới sẽ được mở lên. Lúc này click vào cái Bookmark đó một lần nữa thì Token sẽ tự động được copy
+Nhập vào Terminal ```npm install``` để cài các thư viện cho tun (mỗi lần tải code mới về đều làm cái này)
 
-Paste Token vừa copy vào file ```token.txt``` rồi lưu lại. Nếu chưa có file thì tạo file mới (chuột phải -> New -> Text Document -> token.txt)
+Nhập vào Terminal ```node config``` để thiết lập ban đầu
 
-<img src="./images/7.jpg" />
+Sửa file ```config.json``` để chạy tun theo ý mình, chỉ cần lưu ý các điểm sau:
 
-Chưa hiểu thì xem cách lấy Token ở đây 👉 https://vt.tiktok.com/ZSYPGvXFh/
-
-Cài đặt Tool ở file ```config.json```, giữ nguyên hoặc xem chú thích bên dưới để tùy chỉnh
-
-```json
+```js
 {
-  "nest": 3, // số tổ rơm bạn đang có, nếu có nhiều hơn thì thay số vào
-  "maxSleepTime": 3, // thời gian nghỉ tối đa giữa mỗi lần lụm trứng, đơn vị: giây
-  "retryCount": 86400, // số lần thử lại khi mất kết nối, quá số lần sẽ dừng Tool
+    "mode": 0, // chế độ chạy cho mỗi tài khoản; 0: lụm trứng + ZỊT ZÀNG; 1: chỉ lụm ZỊT ZÀNG
+    "nest": 3 // số tổ rơm bạn đang có
+    "showBalance": true // cho phép hiển thị số dư balance; true: cho phép; false: không cho hiển thị số dư
 }
 ```
 
-Mở Terminal / PowerShell / Cmd trong thư mục Tool (trên Windows thì đè Shift + chuột phải > Open PowerShell window here)
-
-Nhập vào Terminal dòng code ```npm install``` để cài đặt các thư viện cần thiết (mỗi lần tải code về đều phải làm cái này nhé)
-
-Muốn chạy chức năng nào thì chọn dòng code tương ứng bên dưới nhập vào Terminal
-
-| Code | Chức năng |
-|---|---|
-| ```node quack``` | lụm tất cả trứng & ZỊT ZÀNG |
-| ```node quack 1``` | chỉ lụm ZỊT ZÀNG |
-| ```node quack 2``` | lụm trứng lỏ & ấp trứng hiếm & lụm ZỊT ZÀNG |
-
-<img src="./images/8.jpg" />
-
-## Chạy Tool không cần treo Terminal
-
-Bạn muốn Tool chạy ngầm? ```pm2``` sẽ giúp bạn làm điều này
-
-Cài ```pm2``` bằng cách nhập vào Terminal dòng code ```npm install -g pm2``` (cài một lần duy nhất là xài hoài luôn)
-
-Chọn tính năng Tool chạy ở tham số ```args``` trong file ```ecosystem.config.js```
-
-| Tham số | Chức năng |
-|---|---|
-| args: "" | tương ứng với node quack |
-| args: "1" | tương ứng với node quack 1 |
-| args: "2" | tương ứng với node quack 2 |
-
-Chạy Tool thì nhập vào Terminal dòng code này ```pm2 start```
-
-<img src="./images/9.jpg" />
-
-Xem Tool chạy bằng cách nhập vào Terminal dòng code này ```pm2 log quack```
-
-<img src="./images/10.jpg" />
-
-Bấm tổ hợp phím Ctrl + C để thoát xem Tool chạy
-
-Dừng Tool thì nhập vào Terminal dòng code này ```pm2 stop quack```
-
-Mỗi lần chỉnh sửa trong ```ecosystem.config.js``` thì nhớ dừng Tool, sửa xong mới chạy lại
-
-Xem có đang chạy Tool không thì nhập vào lệnh ```pm2 ls```
-
-<img src="./images/11.jpg" />
-
-## Chạy nhiều tải khoản
-
-Cái này không khuyến khích vì dễ bị ăn ban
-
-Thích thì copy ra nhiều thư mục Tool, thay Token vào, sửa tham số ```name``` trong file ```ecosystem.config.js``` thành các tên khác nhau rồi ```pm2 start```
-
-Hóa ra trước giờ ít người biết cách copy thư mục ra để chạy nhiều tài khoản, ảo thật sự 🤣
+Nhập vào Terminal ```node quack``` để chạy tun
 
 ## Phần phụ
 
 Xem lại lịch sử trong thư mục ```logs```
 
-Lịch sử lụm ZỊT ZÀNG ở file ```golden_duck_ngày_tháng_năm.txt```
+Lịch sử lụm ZỊT ZÀNG ở file ```golden_ngàythángnăm.txt```
 
-Lịch sử ấp trứng ở file ```farm_ngày_tháng_năm.txt```
-
-Lịch sử lỗi ở file ```error_ngày_tháng_năm.txt```
-
-Lịch sử khác ở file ```log_ngày_tháng_năm.txt```
+Lịch sử lỗi ở file ```error_ngàythángnăm.txt```
 
 ## Các lỗi thường gặp
 
-### SecurityError - UnauthorizedAccess
-
-<img src="./images/12.jpg" />
+### 1. SecurityError - UnauthorizedAccess
 
 Gặp lỗi trên chỉ cần dán dòng lệnh dưới đây vào rồi enter là được
 
 ```bash
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 ```
+<img src="./images/12.jpg" />
 
-### ObjectNotFound - CommandNotFoundException
+
+### 2. ObjectNotFound - CommandNotFoundException
+
+Lỗi này là do chưa cài NodeJS
 
 <img src="./images/13.jpg" />
 
-Gặp lỗi này thì dùm ơn, kéo lên trên đọc kỹ lại từ đầu 🤦‍♂️ đã cài NodeJS đâu mà chẳng gặp lỗi này
+### 3. Lặp lại nhiều lần THIS_DUCK_NOT_ENOUGH_TIME_TO_LAY
 
-### Lặp lại nhiều lần THIS_DUCK_NOT_ENOUGH_TIME_TO_LAY
+Lỗi này do vịt không đẻ kịp. Tự ấp thủ công thêm vịt để tránh lỗi này, vịt lỏ cũng được, tối thiểu 15 con
 
 <img src="./images/14.jpg" />
 
-Lỗi này do vịt không đẻ kịp. Tự ấp thủ công thêm vịt để tránh lỗi này (vịt lỏ cũng được, tối thiểu 10 con)
+### 4. Không hiển thị emoji
 
-### Không hiển thị emoji
+Cái này là do PowerShell / Cmd không hỗ trợ. Tải Terminal về cài vào rồi mở tun bằng Terminal 👉 https://github.com/microsoft/terminal
 
 <img src="./images/15.jpg" />
-
-Cái này là do PowerShell / Cmd không hỗ trợ. Tải Terminal về cài vào rồi mở Tool bằng Terminal 👉 https://github.com/microsoft/terminal

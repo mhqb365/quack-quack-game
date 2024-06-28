@@ -1,33 +1,33 @@
 const postAction = require("../actions/post");
 const sleep = require("./sleep");
-const config = require("../config.json");
+const app = require("../app.json");
 const addLog = require("./addLog");
 
-async function removeDuck(token, ua, duck_id) {
+async function removeDuck(token, ua, duck_id, proxy) {
   let retry = 0;
   let data = null;
-  while (retry < config.retryCount) {
+  while (retry < app.retryCount) {
     if (!!data) {
       break;
     }
-    data = await removeDuckInternal(token, ua, duck_id);
+    data = await removeDuckInternal(token, ua, duck_id, proxy);
     retry++;
   }
 
   return data;
 }
 
-async function removeDuckInternal(token, ua, duck_id) {
+async function removeDuckInternal(token, ua, duck_id, proxy) {
   try {
     const data = `ducks=%7B%22ducks%22%3A%5B${duck_id}%5D%7D`;
-    const response = await postAction(token, "duck/remove", data, ua);
+    const response = await postAction(token, "duck/remove", data, ua, proxy);
     // console.log(response);
     return response.data;
   } catch (error) {
     console.log("removeDuck error");
     if (error.response) {
       // console.log(error.response.data);
-      console.log("status", error.response.status);
+      // console.log("status", error.response.status);
       // console.log("data", error.response.data);
       const status = error.response.status;
       // console.log(error.response.headers);

@@ -1,6 +1,6 @@
 const axios = require("axios");
 
-async function postAction(token, endpoint, params, ua) {
+async function postAction(token, endpoint, params, ua, proxy) {
   return await axios({
     method: "POST",
     url: "https://api.quackquack.games/" + endpoint,
@@ -11,6 +11,7 @@ async function postAction(token, endpoint, params, ua) {
       "content-type": "application/x-www-form-urlencoded",
       "User-Agent": ua,
     },
+    proxy,
     data: params,
   });
 }

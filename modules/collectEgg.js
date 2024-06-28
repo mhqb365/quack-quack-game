@@ -1,29 +1,30 @@
 const postAction = require("../actions/post");
 const sleep = require("./sleep");
-const config = require("../config.json");
+const app = require("../app.json");
 const addLog = require("./addLog");
 
-async function collectEgg(token, ua, nest_id) {
+async function collectEgg(token, ua, nest_id, proxy) {
   let retry = 0;
   let data = null;
-  while (retry < config.retryCount) {
+  while (retry < app.retryCount) {
     if (!!data) {
       break;
     }
-    data = await collectEggInternal(token, ua, nest_id);
+    data = await collectEggInternal(token, ua, nest_id, proxy);
     retry++;
   }
 
   return data;
 }
 
-async function collectEggInternal(token, ua, nest_id) {
+async function collectEggInternal(token, ua, nest_id, proxy) {
   try {
     const response = await postAction(
       token,
       "nest/collect",
       "nest_id=" + nest_id,
-      ua
+      ua,
+      proxy
     );
     return response.data;
   } catch (error) {
