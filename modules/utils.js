@@ -20,7 +20,7 @@ function convertSToMS(seconds) {
 }
 
 function showToken(token) {
-  return `${token.slice(0, 3)}...${token.slice(-4)}`;
+  return `${token.slice(0, 3)}..${token.slice(-4)}`;
 }
 
 async function checkProxy(proxy) {
@@ -34,14 +34,26 @@ async function checkProxy(proxy) {
     const ip = response.data?.ip;
     const cc = response.data?.cc;
 
-    const ipText = ip.split(".");
-    // console.log(ipText);
+    const dot = ip.indexOf(".");
+    const ipv = dot > 0 ? 4 : 6;
+    // console.log(ipv);
 
-    return `${ipText[0]}.${ipText[1]}...${ipText[3]} - ${cc}`;
-  } catch (err) {
-    console.log("err checkip: ", err);
+    const ipText = ipv === 4 ? ip.split(".") : ip.split(":");
+    // console.log(ipText);
+    const ipShow =
+      ipv === 4
+        ? `${ipText[0]}.${ipText[1]}..${ipText[3]} - ${cc}`
+        : `${ipText[0]}:${ipText[1]}..${ipText[7]} - ${cc}`;
+
+    return ipShow;
+  } catch (error) {
+    console.log("ERROR checkProxy:", error);
     return null;
   }
+}
+
+function sleep(s) {
+  return new Promise((resolve) => setTimeout(resolve, s * 1e3));
 }
 
 module.exports = {
@@ -50,4 +62,5 @@ module.exports = {
   convertSToMS,
   showToken,
   checkProxy,
+  sleep,
 };

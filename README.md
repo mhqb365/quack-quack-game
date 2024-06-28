@@ -22,6 +22,10 @@ Bạn có quyền sử dụng nó tùy ý, tuy nhiên xin lưu ý rằng trong m
 
 Chúc bạn sử dụng Tool vui vẻ
 
+## Lưu ý
+
+Mở tay đủ tối thiểu 15 con vịt trước khi chạy Tool
+
 ## Tính năng
 
 Tự động lụm trứng

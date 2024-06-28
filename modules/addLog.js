@@ -12,7 +12,7 @@ try {
 }
 
 function addLog(msg, type) {
-  const logTime = moment().format("HH:MM:ss");
+  const logTime = moment().format("HH:mm:ss");
   const logDate = moment().format("DDMMYYYY");
   let filename = "";
 

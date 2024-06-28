@@ -1,4 +1,3 @@
-const randomUseragent = require("random-useragent");
 const getBalance = require("../modules/getBalance");
 const getListReload = require("../modules/getListReload");
 const collectEgg = require("../modules/collectEgg");
@@ -8,6 +7,7 @@ const getGoldenDuckReward = require("../modules/getGoldenDuckReward");
 const claimGoldenDuck = require("../modules/claimGoldenDuck");
 const goldenDuckRewardText = require("../modules/goldenDuckRewardText");
 const collectDuck = require("../modules/collectDuck");
+const sleep = require("../modules/sleep");
 const randomSleep = require("../modules/randomSleep");
 const addLog = require("../modules/addLog");
 const {
@@ -16,14 +16,14 @@ const {
   convertSToMS,
   showToken,
 } = require("../modules/utils");
-const sleep = require("../modules/sleep");
-
 const log = require("log-with-statusbar")({
   ololog_configure: {
     locate: false,
     tag: true,
+    position: "top",
   },
 });
+log.setStatusBarText([]);
 
 const RARE_EGG = [
   undefined,
@@ -56,9 +56,8 @@ function getDuckToLay(ducks) {
 async function collectFromListInternal(account, listNests, listDucks) {
   const randomIndex = Math.floor(Math.random() * listNests.length);
   const nest = listNests[randomIndex];
-  const duck = getDuckToLay(listDucks);
-
   const nestStatus = nest.status;
+  const duck = getDuckToLay(listDucks);
 
   if (nestStatus === 1) {
     const layEggData = await layEgg(
@@ -69,11 +68,32 @@ async function collectFromListInternal(account, listNests, listDucks) {
       account.proxy
     );
     // console.log("layEggData", layEggData);
-    listNests = listNests.filter((n) => n.id !== nest.id);
-    listDucks = listDucks.filter((d) => d.id !== duck.id);
 
-    await randomSleep();
-    collectFromList(account, listNests, listDucks);
+    if (layEggData.error_code !== "") {
+      const error_code = layEggData.error_code;
+      console.log("layEggData 1 error", error_code);
+
+      switch (error_code) {
+        case "THIS_DUCK_NOT_ENOUGH_TIME_TO_LAY":
+          await randomSleep();
+          harvestEggGoldenDuck(account);
+          break;
+        case "THIS_NEST_IS_UNAVAILABLE":
+          await randomSleep();
+          harvestEggGoldenDuck(account);
+          break;
+        default:
+          await randomSleep();
+          harvestEggGoldenDuck(account);
+          break;
+      }
+    } else {
+      listNests = listNests.filter((n) => n.id !== nest.id);
+      listDucks = listDucks.filter((d) => d.id !== duck.id);
+
+      await randomSleep();
+      collectFromList(account, listNests, listDucks);
+    }
   } else if (nestStatus === 2) {
     const collectEggData = await collectEgg(
       account.token,
@@ -90,7 +110,7 @@ async function collectFromListInternal(account, listNests, listDucks) {
       switch (error_code) {
         case "DUPLICATE_REQUEST":
           await randomSleep();
-          collectFromList(account, listNests, listDucks);
+          harvestEggGoldenDuck(account);
           break;
         case "THIS_NEST_DONT_HAVE_EGG_AVAILABLE":
           const layEggData = await layEgg(
@@ -100,6 +120,7 @@ async function collectFromListInternal(account, listNests, listDucks) {
             duck.id,
             account.proxy
           );
+
           listNests = listNests.filter((n) => n.id !== nest.id);
           listDucks = listDucks.filter((d) => d.id !== duck.id);
 
@@ -123,12 +144,12 @@ async function collectFromListInternal(account, listNests, listDucks) {
 
       if (layEggData.error_code !== "") {
         const error_code = layEggData.error_code;
-        console.log("layEggData error", error_code);
+        console.log("layEggData 2 error", error_code);
 
         switch (error_code) {
           case "THIS_DUCK_NOT_ENOUGH_TIME_TO_LAY":
             await randomSleep();
-            collectFromList(account, listNests, listDucks);
+            harvestEggGoldenDuck(account);
             break;
           case "THIS_NEST_IS_UNAVAILABLE":
             await randomSleep();
@@ -142,9 +163,9 @@ async function collectFromListInternal(account, listNests, listDucks) {
       } else {
         const rareEgg = RARE_EGG[nest.type_egg];
         const amountText = `+${AMOUNT_COLLECT[nest.type_egg]}`;
-        msg = `${showToken(account.token)} | ${account.myProxy} | Nest 🌕 ${
+        msg = `${showToken(account.token)} | ${account.myProxy} | NEST 🌕 ${
           nest.id
-        } - Egg 🥚 ${rareEgg} | collected (${amountText})`;
+        } - EGG 🥚 ${rareEgg} | collected (${amountText})`;
         console.log(msg);
 
         let tokens = JSON.parse(getData("./token.json"));
@@ -155,7 +176,7 @@ async function collectFromListInternal(account, listNests, listDucks) {
           }
         });
         setData("./token.json", JSON.stringify(tokens));
-        await sleep(1);
+        await sleep(0.5);
 
         listNests = listNests.filter((n) => n.id !== nest.id);
         listDucks = listDucks.filter((d) => d.id !== duck.id);
@@ -172,11 +193,11 @@ async function collectFromListInternal(account, listNests, listDucks) {
       account.proxy
     );
 
-    console.log(
-      `${showToken(account.token)} | ${account.myProxy} | Nest 🌕 ${
-        nest.id
-      } | collected (Duck 🦆)`
-    );
+    // console.log(
+    //   `${showToken(account.token)} | ${account.myProxy} | NEST 🌕 ${
+    //     nest.id
+    //   } | collected (DUCK 🦆)`
+    // );
 
     const layEggData = await layEgg(
       account.token,
@@ -188,7 +209,7 @@ async function collectFromListInternal(account, listNests, listDucks) {
 
     if (layEggData.error_code !== "") {
       const error_code = layEggData.error_code;
-      console.log("layEggData error", error_code);
+      console.log("layEggData 3 error", error_code);
 
       switch (error_code) {
         case "THIS_DUCK_NOT_ENOUGH_TIME_TO_LAY":
@@ -263,13 +284,14 @@ async function collectGoldenDuck(account, listNests, listDucks) {
           }
         });
         setData("./token.json", JSON.stringify(tokens));
-        await sleep(1);
+        await sleep(0.5);
       }
 
       msg = `${showToken(account.token)} | ${
         account.myProxy
-      } | Quackster 🐥 | ${rewardText}`;
+      } | G.DUCK 🐥 | ${rewardText}`;
       console.log(msg);
+      msg = `${showToken(account.token)} | ${account.myProxy} | ${rewardText}`;
       addLog(msg, "golden");
 
       collectFromList(account, listNests, listDucks);
@@ -297,54 +319,57 @@ async function collectFromList(account, listNests, listDucks) {
 }
 
 async function harvestEggGoldenDuckInternal(account, listNests, listDucks) {
-  let wallets = await getBalance(account.token, account.ua, account.proxy);
-  let tokens = JSON.parse(getData("./token.json"));
-  tokens.forEach((token) => {
-    if (token._id === account._id) {
-      wallets.forEach((w) => {
-        if (w.symbol === "EGG") token.balance.egg = Number(w.balance);
-        if (w.symbol === "PET") token.balance.pet = Number(w.balance);
-      });
-    }
-  });
-  setData("./token.json", JSON.stringify(tokens));
-  await sleep(1);
+  if (!account.cfo) {
+    let wallets = await getBalance(account.token, account.ua, account.proxy);
+    let tokens = JSON.parse(getData("./token.json"));
+    tokens.forEach((token) => {
+      if (token._id === account._id) {
+        wallets.forEach((w) => {
+          if (w.symbol === "EGG") token.balance.egg = Number(w.balance);
+          if (w.symbol === "PET") token.balance.pet = Number(w.balance);
+        });
+      }
+    });
+    setData("./token.json", JSON.stringify(tokens));
+    await sleep(0.5);
 
-  // console.log(listNests);
-  if (listNests.length < tokens.nest)
-    return harvestEggGoldenDuck(account, true);
+    // console.log(listNests);
+    if (listNests.length < tokens.nest)
+      return harvestEggGoldenDuck(account, true);
 
-  const nestIds = listNests.map((i) => i.id);
-  console.log(
-    `${showToken(account.token)} | ${account.myProxy} | ${
-      listNests.length
-    } Nest 🌕`,
-    nestIds
-  );
-
-  if (account.nextGoldenDuck !== 0)
+    const nestIds = listNests.map((i) => i.id);
     console.log(
-      `${showToken(account.token)} | ${
-        account.myProxy
-      } | Quackster 🐥 appears after ${convertSToMS(account.nextGoldenDuck)}`
+      `${showToken(account.token)} | ${account.myProxy} | ${
+        listNests.length
+      } NEST 🌕`,
+      nestIds
     );
+  }
 
-  // console.clear();
-
-  // log.setStatusBarText([`Complete!`]);
+  // if (account.nextGoldenDuck !== 0)
+  //   console.log(
+  //     `${showToken(account.token)} | ${
+  //       account.myProxy
+  //     } | G.DUCK 🐥 appears after ${convertSToMS(account.nextGoldenDuck)}`
+  //   );
 
   collectFromList(account, listNests, listDucks);
 }
 
 async function harvestEggGoldenDuck(account, new_game = false) {
-  const { listNests, listDucks } = await getListReload(
-    account.token,
-    account.ua,
-    new_game,
-    account.proxy
-  );
-  // console.log(listNests);
-  await sleep(1);
+  let listNests = [];
+  let listDucks = [];
+  if (!account.cfo) {
+    const data = await getListReload(
+      account.token,
+      account.ua,
+      new_game,
+      account.proxy
+    );
+    listNests = data.listNests;
+    listDucks = data.listDucks;
+  }
+  await sleep(0.5);
   harvestEggGoldenDuckInternal(account, listNests, listDucks);
 }
 
