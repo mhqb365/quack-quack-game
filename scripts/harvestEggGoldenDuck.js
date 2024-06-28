@@ -168,14 +168,14 @@ async function collectFromListInternal(account, listNests, listDucks) {
         } - EGG 🥚 ${rareEgg} | collected (${amountText})`;
         console.log(msg);
 
-        let tokens = JSON.parse(getData("./token.json"));
+        let tokens = JSON.parse(getData("./config.json"));
         tokens.forEach((token) => {
           if (token._id === account._id) {
             token.balance.egg += Number(AMOUNT_COLLECT[nest.type_egg]);
             token.collected.egg += Number(AMOUNT_COLLECT[nest.type_egg]);
           }
         });
-        setData("./token.json", JSON.stringify(tokens));
+        setData("./config.json", JSON.stringify(tokens));
         await sleep(0.5);
 
         listNests = listNests.filter((n) => n.id !== nest.id);
@@ -193,11 +193,11 @@ async function collectFromListInternal(account, listNests, listDucks) {
       account.proxy
     );
 
-    // console.log(
-    //   `${showToken(account.token)} | ${account.myProxy} | NEST 🌕 ${
-    //     nest.id
-    //   } | collected (DUCK 🦆)`
-    // );
+    console.log(
+      `${showToken(account.token)} | ${account.myProxy} | NEST 🌕 ${
+        nest.id
+      } | collected (DUCK 🦆)`
+    );
 
     const layEggData = await layEgg(
       account.token,
@@ -269,7 +269,7 @@ async function collectGoldenDuck(account, listNests, listDucks) {
           account.proxy
         );
 
-        let tokens = JSON.parse(getData("./token.json"));
+        let tokens = JSON.parse(getData("./config.json"));
         tokens.forEach((token) => {
           if (token._id === account._id) {
             token.goldenDuck += 1;
@@ -283,7 +283,7 @@ async function collectGoldenDuck(account, listNests, listDucks) {
             }
           }
         });
-        setData("./token.json", JSON.stringify(tokens));
+        setData("./config.json", JSON.stringify(tokens));
         await sleep(0.5);
       }
 
@@ -321,7 +321,7 @@ async function collectFromList(account, listNests, listDucks) {
 async function harvestEggGoldenDuckInternal(account, listNests, listDucks) {
   if (!account.cfo) {
     let wallets = await getBalance(account.token, account.ua, account.proxy);
-    let tokens = JSON.parse(getData("./token.json"));
+    let tokens = JSON.parse(getData("./config.json"));
     tokens.forEach((token) => {
       if (token._id === account._id) {
         wallets.forEach((w) => {
@@ -330,7 +330,7 @@ async function harvestEggGoldenDuckInternal(account, listNests, listDucks) {
         });
       }
     });
-    setData("./token.json", JSON.stringify(tokens));
+    setData("./config.json", JSON.stringify(tokens));
     await sleep(0.5);
 
     // console.log(listNests);
@@ -371,7 +371,7 @@ async function harvestEggGoldenDuck(account, new_game = false) {
   }
   await sleep(0.5);
 
-  console.clear();
+  // console.clear();
   harvestEggGoldenDuckInternal(account, listNests, listDucks);
 }
 

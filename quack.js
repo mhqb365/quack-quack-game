@@ -24,7 +24,7 @@ try {
 // console.log(proxys);
 
 try {
-  const tokens = require("./token.json");
+  const tokens = require("./config.json");
   // console.log(tokens);
   tokens.forEach(async (token) => {
     // console.log(token);
@@ -55,26 +55,31 @@ try {
     // console.log(myProxy);
     token.myProxy = myProxy;
 
-    if (token.run === 0) {
+    if (token.mode === 0) {
       const harvester = await getHarvester(token.token, token.ua, token.proxy);
       // console.log(harvester);
 
       if (harvester.is_active === 1) {
+        token.cfo = true;
         console.log(
           `${showToken(token.token)} | ${
             token.myProxy
           } | CFO activated | Only collect G.DUCK 🐥`
         );
-        token.cfo = true;
       } else token.cfo = false;
 
       harvestEggGoldenDuck(token);
     }
-    if (token.run === 1) {
+
+    if (token.mode === 1) {
       token.cfo = true;
+      console.log(
+        `${showToken(token.token)} | ${token.myProxy} | Only collect G.DUCK 🐥`
+      );
       harvestEggGoldenDuck(token);
     }
-    if (token.run === 2) hatchEggGoldenDuck(token);
+
+    // if (token.mode === 2) hatchEggGoldenDuck(token);
   });
 } catch {
   log.error(`No 'token.json' file found`);

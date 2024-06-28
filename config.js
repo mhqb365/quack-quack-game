@@ -26,7 +26,7 @@ async function initConfig() {
     accounts.forEach((account, index) => {
       data.push({
         _id: index,
-        run: 0,
+        mode: 0,
         token: account,
         nest: 3,
         balance: {
@@ -44,11 +44,11 @@ async function initConfig() {
     });
     // console.log(data);
 
-    setData("token.json", JSON.stringify(data));
+    setData("config.json", JSON.stringify(data));
     await sleep(0.5);
 
-    log.info("Make 'token.json' success");
-    log.info("Edit 'token.json' or run 'node quack' now with default config");
+    log.info("Make 'config.json' success");
+    log.info("Edit 'config.json' or run 'node quack' now with default config");
   } catch {
     log.error(`No 'token.txt' file found`);
     log.info(`Paste your Token(s) to 'token.txt' file first`);
