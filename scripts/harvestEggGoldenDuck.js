@@ -346,12 +346,12 @@ async function harvestEggGoldenDuckInternal(account, listNests, listDucks) {
     );
   }
 
-  // if (account.nextGoldenDuck !== 0)
-  //   console.log(
-  //     `${showToken(account.token)} | ${
-  //       account.myProxy
-  //     } | G.DUCK 🐥 appears after ${convertSToMS(account.nextGoldenDuck)}`
-  //   );
+  if (account.nextGoldenDuck !== 0)
+    console.log(
+      `${showToken(account.token)} | ${
+        account.myProxy
+      } | G.DUCK 🐥 appears after ${convertSToMS(account.nextGoldenDuck)}`
+    );
 
   collectFromList(account, listNests, listDucks);
 }
@@ -370,6 +370,8 @@ async function harvestEggGoldenDuck(account, new_game = false) {
     listDucks = data.listDucks;
   }
   await sleep(0.5);
+
+  console.clear();
   harvestEggGoldenDuckInternal(account, listNests, listDucks);
 }
 

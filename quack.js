@@ -10,11 +10,7 @@ const log = require("log-with-statusbar")({
     position: "top",
   },
 });
-log.setStatusBarText([
-  `[ QUACK QUACK GAME TOOL ]`,
-  `Link Tool : [ j2c.cc/quack ]`,
-  ``,
-]);
+log.setStatusBarText([]);
 
 let proxys = null;
 try {
@@ -29,6 +25,7 @@ try {
 
 try {
   const tokens = require("./token.json");
+  // console.log(tokens);
   tokens.forEach(async (token) => {
     // console.log(token);
 
@@ -36,15 +33,12 @@ try {
       return ua.browserName === "Chrome";
     });
 
-    let proxy;
-    try {
-      proxy = proxys[token._id];
-    } catch {
-      console.log(`${showToken(token.token)} | Run without proxy`);
-    }
-    // console.log(proxy);
+    let proxy = proxys[token._id];
 
-    if (proxy !== undefined) {
+    if (proxy === undefined) {
+      console.log(`${showToken(token.token)} | Run without proxy`);
+      token.proxy = null;
+    } else {
       const [host, port, username, password] = proxy.split(":");
       token.proxy = {
         protocol: "http",

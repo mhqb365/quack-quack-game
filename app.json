@@ -1,3 +1,4 @@
 {
+  "maxSleepTime": 3,
   "retryCount": 84000
 }

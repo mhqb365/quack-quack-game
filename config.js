@@ -16,6 +16,13 @@ async function initConfig() {
       .split(/\r?\n/)
       .filter((line) => line.trim() !== "");
     // console.log(accounts);
+
+    if (accounts.length === 0) {
+      log.error(`'Token.txt' file is empty`);
+      log.info(`Paste your Token(s) to 'token.txt' file first`);
+      process.exit();
+    }
+
     accounts.forEach((account, index) => {
       data.push({
         _id: index,
