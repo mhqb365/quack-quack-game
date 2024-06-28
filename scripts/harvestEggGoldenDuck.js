@@ -370,33 +370,29 @@ async function harvestEggGoldenDuck(account, new_game = false, timerInstance) {
 
   console.clear();
   let statusText = [
-    "[ Quack Quack Game Tool ]",
-    "Link Tool [ j2c.cc/quack ]",
-    `Run time [ ${timer
+    "[ Quack Quack Game Tun ]",
+    "Link tun: j2c.cc/quack",
+    `Run time: ${timer
       .getTimeValues()
-      .toString(["days", "hours", "minutes", "seconds"])} ]`,
+      .toString(["days", "hours", "minutes", "seconds"])}`,
     "",
   ];
   let tokens = JSON.parse(getData("./config.json"));
   // console.log(tokens);
   tokens.forEach((token, index) => {
     statusText.push(
-      `Account ${index + 1} [ ${showToken(token.token)} ] [ ${
-        token.proxyText
-      } ]`
+      `Account ${index + 1}: ${showToken(token.token)} | ${token.proxyText}`
     );
     if (token.showBalance)
       statusText.push(
-        `Balance [ ${Number(token.balance.egg).toFixed(2)} EGG 🥚 ] [ ${Number(
+        `Balances: ${Number(token.balance.egg).toFixed(2)} EGG 🥚 | ${Number(
           token.balance.pet
-        ).toFixed(2)} PET 🐸 ]`
+        ).toFixed(2)} PET 🐸`
       );
     statusText.push(
-      `Collected [ ${Number(token.collected.egg).toFixed(
-        2
-      )} EGG 🥚 ] [ ${Number(token.collected.pet).toFixed(2)} PET 🐸 ] [ ${
-        token.goldenDuck
-      } G.DUCK 🐥 ]`
+      `Collected: ${Number(token.collected.egg).toFixed(2)} EGG 🥚 | ${Number(
+        token.collected.pet
+      ).toFixed(2)} PET 🐸 | ${token.goldenDuck} G.DUCK 🐥`
     );
     statusText.push("");
   });

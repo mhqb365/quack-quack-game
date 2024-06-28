@@ -13,9 +13,9 @@ const log = require("log-with-statusbar")({
 });
 
 let statusText = [
-  "[ Quack Quack Game Tool ]",
-  "Link Tool [ j2c.cc/quack ]",
-  "Run time [ 00:00:00:00 ]",
+  "[ Quack Quack Game Tun ]",
+  "Link tool: j2c.cc/quack",
+  "Run time: 00:00:00:00",
   "",
 ];
 log.setStatusBarText(statusText);
@@ -92,6 +92,7 @@ try {
         );
       } else token.cfo = false;
 
+      await sleep(1);
       harvestEggGoldenDuck(token, true, timerInstance);
     }
 
@@ -102,7 +103,9 @@ try {
           token.proxyText
         } | Only collect G.DUCK 🐥`
       );
-      harvestEggGoldenDuck(token);
+
+      await sleep(1);
+      harvestEggGoldenDuck(token, true, timerInstance);
     }
 
     // if (token.mode === 2) hatchEggGoldenDuck(token);
