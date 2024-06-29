@@ -53,7 +53,7 @@ try {
       return ua.browserName === "Chrome";
     });
 
-    let proxy = proxys[token._id];
+    let proxy = proxys?.[token._id];
 
     if (proxy === undefined) {
       console.log(`${showToken(token.token)} | Run without proxy`);
@@ -108,7 +108,7 @@ try {
       harvestEggGoldenDuck(token, true, timerInstance);
     }
 
-    // if (token.mode === 2) hatchEggGoldenDuck(token);
+    if (token.mode === 2) hatchEggGoldenDuck(token, timerInstance);
   });
 } catch {
   log.error(`No 'config.json' file found`);
