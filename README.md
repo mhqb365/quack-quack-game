@@ -2,15 +2,15 @@
 
 ## Giới thiệu
 
-Tun (Tool) tự động cho Quack Quack Game
+Tun (Tool) tự động cho Quack Quack Game 
 
 Link tun chính thức 👉 https://j2c.cc/quack
 
 Windows / Mac / Linux đều dùng được miễn cài được NodeJS
 
-Người viết tun là thợ sửa laptop 👉 https://tiktok.com/@mhqb365
+Tác giả là thợ sửa laptop 👉 https://tiktok.com/@mhqb365
 
-Mọi người có hứng thú với con game vô tri này thì tham gia link này 👉 https://t.me/quackquack_game_bot?start=6hn8Xrp7DK
+Tham gia game qua link này 👉 https://t.me/quackquack_game_bot?start=6hn8Xrp7DK
 
 Tìm hiểu về game ở đây 👉 https://whitepaper.quackquack.games
 
@@ -24,95 +24,99 @@ Chúc bạn sử dụng tun vui vẻ
 
 ## Tính năng
 
-Tự động lụm trứng
+Tự động lụm trứng, có CFO thì tốc độ lụm giống đang treo game
 
-Tự động lụm ZỊT ZÀNG nhưngkhông lụm được TON
+Tự động lụm ZỊT ZÀNG, nhưng không lụm được TON, không lụm X2
 
-Chạy nhiều tài khoản cùng lúc
+Chạy nhiều tài khoản cùng lúc (mỗi tài khoản 1 token, mỗi token 1 dòng, bỏ vào file 'token.txt', chưa có file thì tạo)
 
-Dùng proxy cho các tài khoản
+Dùng proxy cho các tài khoản (proxy bạn tự chuẩn bị nhé, proxy có định dạng: ip:port:username:password, mỗi proxy 1 dòng, bỏ vào file 'proxy.txt', chưa có file thì tạo, thứ tự tương ứng với tài tài khoản bên file 'token.txt', tài khoản nào không dùng proxy thì dòng đó ghi vào chữ 'none')
 
-## Lưu ý cần biết
-
-Bạn phải ấp thủ công đủ tối thiểu 15 con vịt rồi mới chạy tun
+Lưu ý: bạn phải ấp thủ công đủ tối thiểu 15 con vịt rồi mới chạy tun
 
 ## Cách dùng
 
-Máy tính cần hiện đuôi file để thao tác dễ hơn (hiện đuôi file trên Windows bằng cách mở Start menu -> tìm File Explorer Options -> View -> bỏ tick Hide extentions for known file types -> OK)
+1. Cài NodeJS 👉 https://nodejs.org/en/download/prebuilt-installer/current
 
-Cài NodeJS trước 👉 https://nodejs.org/en/download/prebuilt-installer
+2. Tải tun về, xả nén rồi mở folder tun lên
 
-Tải code về -> giải nén ra folder
+3. Mở Terminal / PowerShell / Cmd trong folder tun
 
-Mở Terminal / PowerShell / Cmd trong folder vừa giải nén được
+4. Chạy lệnh ```npm install``` (mỗi lần tải tun về đều phải chạy lệnh này)
 
-Bỏ token game vào file ```token.txt```, mỗi dòng một token nếu chạy nhiều tài khoản
+5. Bỏ token game vào file 'token.json', bỏ proxy vào file 'proxy.txt' (nếu có proxy)
 
-Nếu có nhiều tài khoản thì thêm proxy vào file ```proxy.txt```, mỗi dòng một proxy
+6. Chạy lệnh ```node quack``` để tun tự động làm việc
 
-Cấu trúc mỗi proxy như này 👉 host:port:username:password
+### Có 2 cách lấy token game
 
-Ví dụ: 192.168.10.215:8080:admin:p@ssword
+Muốn lấy token phải đăng nhập Telegram và mở game trên trình duyệt web
 
-Proxy ở dòng thứ mấy thì sẽ dùng cho token ở dòng tương ứng
+- Cách 1: Mở game -> bấm F12 mở Devtools -> Application -> Storage -> play.quackquack.games -> telegram-user -> copy cái token trong value của nó rồi dán vào file 'token.txt', khó hiểu thì xem hình này:
 
-Code tạo Bookmar để lấy token game
+<img src="./imgs/get-token.jpg" />
+
+- Cách 2: Tạo bookmark mới trên Bookmarks bar với tên là 'Get Quack Token' và URL là đoạn code bên dưới. Sau đó mở game và click vào bookmark vừa tạo sẽ mở ra 1 tab game mới, click vào cái bookmark đó lần nữa thì token đã được copy, chỉ việc dán vào file 'token.txt' thôi
+
 ```js
 javascript:var srcValue,token,copyToken,iframe=document.querySelector("iframe");function copyTextToClipboard(e){var t=document.createElement("textarea");t.textContent=e,document.body.appendChild(t),t.select(),document.execCommand("copy"),t.blur(),document.body.removeChild(t),alert("Token copied"),window.close()}iframe?window.location.hostname.includes("telegram")?open(iframe.getAttribute("src"),"_blank"):copyTextToClipboard(JSON.parse(localStorage.getItem("telegram-user")).state.token):alert("Open game first");
 ```
 
-## Chạy tun
+<img src="./imgs/get-token-1.jpg" />
 
-Nhập vào Terminal ```npm install``` để cài các thư viện cho tun (mỗi lần tải code mới về đều làm cái này)
+<img src="./imgs/get-token-2.jpg" />
 
-Nhập vào Terminal ```node config``` để thiết lập ban đầu
+## Treo tun không cần mở cửa sổ Terminal
 
-Sửa file ```config.json``` để chạy tun theo ý mình, chỉ cần lưu ý các điểm sau:
+Sử dụng 'pm2' để treo tun (công cụ chạy ngầm ứng dụng NodeJS), và đừng hỏi "tắt máy tính nó có tắt hay không" nhé, đương nhiên tắt máy tính thì nó chạy bằng niềm tin
 
-```js
-{
-    "mode": 0, // chế độ chạy cho mỗi tài khoản; 0: lụm trứng + ZỊT ZÀNG; 1: chỉ lụm ZỊT ZÀNG
-    "nest": 3 // số tổ rơm bạn đang có
-    "showBalance": true // cho phép hiển thị số dư balance; true: cho phép; false: không cho hiển thị số dư
-}
-```
+### Cách dùng 'pm2'
 
-Nhập vào Terminal ```node quack``` để chạy tun
+1. Tải 'pm2' về bằng cách mở Terminal / PowerShell / Cmd lên và chạy lệnh ```npm i -g pm2``` (chạy 1 lần là xài hoài)
 
-## Phần phụ
+2. Chạy lệnh ```pm2 start``` trong folder tun
 
-Xem lại lịch sử trong thư mục ```logs```
+Để xem log thì chạy lệnh ```pm2 log quack``` hoặc ```pm2 logs```
 
-Lịch sử lụm ZỊT ZÀNG ở file ```golden_ngàythángnăm.txt```
+Nếu có lỗi thì dừng tun bằng lệnh ```pm2 stop quack```
 
-Lịch sử lỗi ở file ```error_ngàythángnăm.txt```
+Sửa lỗi xong thì chạy lại bằng lệnh ```pm2 start quack```
 
-## Các lỗi thường gặp
+Để xóa tun ra khỏi 'pm2' thì chạy lệnh ```pm2 delete quack```
 
-### 1. SecurityError - UnauthorizedAccess
+## Cách lỗi thường gặp
 
-Gặp lỗi trên chỉ cần dán dòng lệnh dưới đây vào rồi enter là được
+<img src="./imgs/error/1.jpg" />
 
+1. SecurityError - UnauthorizedAccess: lỗi này do thiếu quyền truy cập, chạy lệnh dưới đây để khắc phục:
 ```bash
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 ```
-<img src="./images/12.jpg" />
 
+<hr />
 
-### 2. ObjectNotFound - CommandNotFoundException
+<img src="./imgs/error/2.jpg" />
 
-Lỗi này là do chưa cài NodeJS
+2. ObjectNotFound - CommandNotFoundException: lỗi này do chưa cài NodeJS, vào link phía trên tải về cài vào
 
-<img src="./images/13.jpg" />
+<hr />
 
-### 3. Lặp lại nhiều lần THIS_DUCK_NOT_ENOUGH_TIME_TO_LAY
+<img src="./imgs/error/3.jpg" />
 
-Lỗi này do vịt không đẻ kịp. Tự ấp thủ công thêm vịt để tránh lỗi này, vịt lỏ cũng được, tối thiểu 15 con
+3. Cannot find module: lỗi này do chưa chạy lệnh ```npm install```
 
-<img src="./images/14.jpg" />
+<hr />
 
-### 4. Không hiển thị emoji
+<img src="./imgs/error/4.jpg" />
 
-Cái này là do PowerShell / Cmd không hỗ trợ. Tải Terminal về cài vào rồi mở tun bằng Terminal 👉 https://github.com/microsoft/terminal
+4. 'THIS_DUCK_NOT_ENOUGH_TIME_TO_LAY': vịt tạo trứng hông kịp, ấp thủ công đủ tối thiểu 15 con vịt trước đi
 
-<img src="./images/15.jpg" />
+<hr />
+
+<img src="./imgs/error/5.jpg" />
+
+5. Không hiển thị emoji: do PowerShell / Cmd không hỗ trợ. Tải Terminal về cài vào rồi mở tun bằng Terminal 👉 https://github.com/microsoft/terminal
+
+## Tks all and GoodLuck
+
+From [mhqb365.com](https://mhqb365.com) with Love ❤️
