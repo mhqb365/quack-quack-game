@@ -10,6 +10,7 @@ const collectHarvester = require("./api/collectHarvester");
 const checkBalance = require("./modules/checkBalance");
 const getUsername = require("./modules/getUserName");
 const showStatusBar = require("./modules/showStatusBar");
+const Timer = require("easytimer.js").Timer;
 
 console.log(`Quack Quack Game Tun`);
 console.log(`Link tun: [ j2c.cc/quack ]`);
@@ -41,8 +42,11 @@ let configs = tokens.map((token, index) => {
   };
 });
 // console.log(configs);
+let timerInstance = new Timer();
 
 (async function main() {
+  timerInstance.start();
+
   for (let i = 0; i < configs.length; i++) {
     let proxy = proxys[i] || null;
 
@@ -131,7 +135,7 @@ let configs = tokens.map((token, index) => {
         }
 
         console.clear();
-        showStatusBar(configs);
+        showStatusBar(configs, timerInstance);
 
         // console.log(configs[i]);
       }, 5e3);
@@ -150,7 +154,7 @@ let configs = tokens.map((token, index) => {
         console.log(`Acc ${configs[i]._id}: Collected:`, configs[i].collected);
 
         console.clear();
-        showStatusBar(configs);
+        showStatusBar(configs, timerInstance);
 
         randomSleep();
 

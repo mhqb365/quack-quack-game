@@ -6,8 +6,16 @@ const log = require("log-with-statusbar")({
   },
 });
 
-function showStatusBar(configs) {
-  let statusText = [`Quack Quack Game Tun`, `Link tun: [ j2c.cc/quack ]`, ``];
+function showStatusBar(configs, timerInstance) {
+  let runTime = `Run time: [ ${timerInstance
+    .getTimeValues()
+    .toString(["days", "hours", "minutes", "seconds"])} ]`;
+  let statusText = [
+    `Quack Quack Game Tun`,
+    `Link tun: [ j2c.cc/quack ]`,
+    `${runTime}`,
+    ``,
+  ];
   configs.forEach((config) => {
     statusText.push(
       `Acc ${config._id}: [ ${config.username} | CFO : ${config.cfo} | Proxy : ${config.proxy} ]`
