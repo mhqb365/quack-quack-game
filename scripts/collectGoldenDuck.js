@@ -7,14 +7,15 @@ async function collectGoldenDuck(instance, config) {
   try {
     const gDuckInfo = await getGDuckReward(instance);
     // console.log(gDuckInfo);
-
-    config.gduck.count++;
-    if (gDuckInfo.data.type === 2 || gDuckInfo.data.type === 2) {
+    if (gDuckInfo.data.type === 2 || gDuckInfo.data.type === 3) {
       await claimGDuck(instance);
-      if (gDuckInfo.data.type === 2)
-        config.gduck.pet += Number(gDuckInfo.data.amount);
-      if (gDuckInfo.data.type === 3)
-        config.gduck.egg += Number(gDuckInfo.data.amount);
+      config.gduck.count++;
+      const amount = Number(gDuckInfo.data.amount);
+      if (gDuckInfo.data.type === 2) {
+        config.gduck.pet += amount;
+      } else {
+        config.gduck.egg += amount;
+      }
     }
 
     const reward = gDuckRewardText(gDuckInfo.data);
