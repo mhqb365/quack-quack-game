@@ -8,7 +8,7 @@ const randomSleep = require("./modules/randomSleep");
 const coundDownGDuck = require("./modules/coundDownGDuck");
 const collectHarvester = require("./api/collectHarvester");
 const checkBalance = require("./modules/checkBalance");
-const getUsername = require("./modules/getUserName");
+const getUsername = require("./modules/getUsername");
 const showStatusBar = require("./modules/showStatusBar");
 const Timer = require("easytimer.js").Timer;
 
