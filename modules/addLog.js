@@ -1,39 +1,33 @@
 const fs = require("fs");
+const moment = require("moment");
+const path = require("path");
 
-const folderName = "logs";
-
-try {
-  if (!fs.existsSync(folderName)) {
-    fs.mkdirSync(folderName);
+function createLogFolder(folderName) {
+  try {
+    if (!fs.existsSync(folderName)) {
+      fs.mkdirSync(folderName);
+    }
+  } catch (err) {
+    console.error(err);
   }
-} catch (err) {
-  console.error(err);
 }
 
-function addLog(msg, type) {
-  const logTime = new Date().toLocaleTimeString();
-  const logDate = `${new Date().getDate()}_${
-    new Date().getMonth() + 1
-  }_${new Date().getFullYear()}`;
+function addLog(
+  msg,
+  type,
+  logFolderPath = "logs",
+  fileNameFormat = `${type ? `${type}_` : ""}` + "${date}.txt"
+) {
+  const logTime = `${moment().format("HH:mm:ss")}`;
+  const logDate = `${moment().format("DDMMYYYY")}`;
 
-  let filename = "";
-
-  switch (type) {
-    case "golden":
-      filename = `golden_duck_${logDate}.txt`;
-      break;
-    case "farm":
-      filename = `farm_${logDate}.txt`;
-      break;
-    case "error":
-      filename = `error_${logDate}.txt`;
-      break;
-    default:
-      filename = `log_${logDate}.txt`;
-  }
+  const filename = fileNameFormat.replace("${date}", logDate);
 
   const logText = `${logTime} | ${msg}\n`;
-  fs.appendFileSync(`./${folderName}/${filename}`, logText, "utf-8");
+  const filePath = path.join(logFolderPath, filename);
+
+  createLogFolder(logFolderPath);
+  fs.appendFileSync(filePath, logText, "utf8");
 }
 
 module.exports = addLog;

@@ -1,13 +1,9 @@
-const config = require("../config.json");
-
-function getRndInteger(min, max) {
+function randomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 function randomSleep() {
-  let max = config.maxSleepTime;
-  if (max < 1) max = 1;
-  const sec = getRndInteger(1, max);
+  const sec = randomInt(1, 3);
   // console.log(`sleep ${sec}s`);
   return new Promise((resolve) => setTimeout(resolve, sec * 1e3));
 }
