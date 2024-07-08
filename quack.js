@@ -22,8 +22,6 @@ const proxys = readFile("proxy.txt");
 
 if (proxys.length === 0) console.log("Tun run without proxy"), console.log();
 
-console.log();
-
 let configs = tokens.map((token, index) => {
   return {
     _id: index + 1,
@@ -36,8 +34,11 @@ let configs = tokens.map((token, index) => {
     },
     collected: {
       egg: 0,
+    },
+    gduck: {
+      count: 0,
+      egg: 0,
       pet: 0,
-      gduck: 0,
     },
   };
 });

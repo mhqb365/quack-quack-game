@@ -7,17 +7,18 @@ async function collectGoldenDuck(instance, config) {
   try {
     const gDuckInfo = await getGDuckReward(instance);
     // console.log(gDuckInfo);
-    if (gDuckInfo.data.type === 2 || gDuckInfo.data.type === 2)
-      await claimGDuck(instance);
 
-    config.collected.gduck++;
-    if (gDuckInfo.data.type === 2)
-      config.collected.pet += Number(gDuckInfo.data.amount);
-    if (gDuckInfo.data.type === 3)
-      config.collected.egg += Number(gDuckInfo.data.amount);
+    config.gduck.count++;
+    if (gDuckInfo.data.type === 2 || gDuckInfo.data.type === 2) {
+      await claimGDuck(instance);
+      if (gDuckInfo.data.type === 2)
+        config.gduck.pet += Number(gDuckInfo.data.amount);
+      if (gDuckInfo.data.type === 3)
+        config.gduck.egg += Number(gDuckInfo.data.amount);
+    }
 
     const reward = gDuckRewardText(gDuckInfo.data);
-    console.log(`Acc ${config._id}: GDuck -> ${reward}`);
+    console.log(`Acc ${config._id}: GDuck: ${reward}`);
     addLog(`${config.username}: ${reward}`, "gduck");
 
     return gDuckInfo;
