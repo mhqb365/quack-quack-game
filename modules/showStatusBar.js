@@ -26,11 +26,12 @@ function showStatusBar(configs, timerInstance) {
       ).toFixed(2)} PET 🐸 ]`
     );
     statusText.push(
-      `Collected: [ ${Number(config.collected.egg).toFixed(
-        2
-      )} EGG 🥚 | ${Number(config.collected.pet).toFixed(2)} PET 🐸 | ${
-        config.collected.gduck
-      } GDUCK 🐥 ]`
+      `Collected: [ ${Number(config.collected.egg).toFixed(2)} EGG 🥚 ]`
+    );
+    statusText.push(
+      `GDuck: [ ${config.gduck.count} GDUCK 🐥 | ${Number(
+        config.gduck.egg
+      ).toFixed(2)} EGG 🥚 | ${Number(config.gduck.pet).toFixed(2)} PET 🐸 ]`
     );
     statusText.push(``);
   });
