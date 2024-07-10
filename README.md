@@ -59,7 +59,7 @@ Muốn lấy token phải đăng nhập Telegram và mở game trên trình duy�
 - Cách 2: Tạo bookmark mới trên Bookmarks bar với tên là 'Get Quack Token' và URL là đoạn code bên dưới. Sau đó mở game và click vào bookmark vừa tạo sẽ mở ra 1 tab game mới, click vào cái bookmark đó lần nữa thì token đã được copy, chỉ việc dán vào file 'token.txt' thôi
 
 ```js
-javascript:var srcValue,token,copyToken,iframe=document.querySelector("iframe");function copyTextToClipboard(e){var t=document.createElement("textarea");t.textContent=e,document.body.appendChild(t),t.select(),document.execCommand("copy"),t.blur(),document.body.removeChild(t),alert("Token copied"),window.close()}iframe?window.location.hostname.includes("telegram")?open(iframe.getAttribute("src"),"_blank"):copyTextToClipboard(JSON.parse(localStorage.getItem("telegram-user")).state.token):alert("Open game first");
+javascript:var srcValue,token,copyToken,iframe=document.querySelector("iframe");function copyTextToClipboard(e){var t=document.createElement("textarea");t.textContent=e,document.body.appendChild(t),t.select(),document.execCommand("copy"),t.blur(),document.body.removeChild(t),alert("Token copied"),window.close()}iframe?window.location.hostname.includes("telegram")?open(iframe.getAttribute("src"),"_blank"):copyTextToClipboard(JSON.parse(localStorage.getItem("telegram-user")).state.token):alert("Wait game load success");
 ```
 
 <img src="./imgs/get-token-1.jpg" />
