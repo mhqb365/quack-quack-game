@@ -17,6 +17,8 @@ console.log(`Link tun: [ j2c.cc/quack ]`);
 console.log();
 
 const tokens = readFile("token.txt");
+if (tokens.length === 0) process.exit();
+
 const proxys = readFile("proxy.txt");
 // console.log(proxys);
 
