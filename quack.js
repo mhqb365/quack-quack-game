@@ -5,16 +5,13 @@ const getInfo = require("./api/getInfo");
 const getHarvester = require("./api/getHarvester");
 const collectListNest = require("./scripts/collectListNest");
 const randomSleep = require("./modules/randomSleep");
-const coundDownGDuck = require("./modules/coundDownGDuck");
+const coundDownGDuck = require("./scripts/coundDownGDuck");
 const collectHarvester = require("./api/collectHarvester");
 const checkBalance = require("./modules/checkBalance");
 const getUsername = require("./modules/getUsername");
 const showStatusBar = require("./modules/showStatusBar");
+const addLog = require("./modules/addLog");
 const Timer = require("easytimer.js").Timer;
-
-console.log(`Quack Quack Game Tun`);
-console.log(`Link tun: [ j2c.cc/quack ]`);
-console.log();
 
 const tokens = readFile("token.txt");
 if (tokens.length === 0) process.exit();
@@ -28,7 +25,11 @@ let configs = tokens.map((token, index) => {
   return {
     _id: index + 1,
     token,
-    cfo: false,
+    isReset: false,
+    cfo: {
+      active: false,
+      amount: 0,
+    },
     proxy: false,
     balance: {
       egg: 0,
@@ -48,12 +49,19 @@ let configs = tokens.map((token, index) => {
 let timerInstance = new Timer();
 
 (async function main() {
+  console.clear();
+
+  console.log(`Quack Quack Game Tun`);
+  console.log(`Link tun: [ j2c.cc/quack ]`);
+  console.log();
+
   timerInstance.start();
 
   for (let i = 0; i < configs.length; i++) {
-    let proxy = proxys[i] || null;
+    let proxy = proxys[i] || "none";
+    // console.log(proxy);
 
-    if (proxy !== null) {
+    if (proxy !== "none") {
       const [host, port, username, password] = proxy.split(":");
       proxy = {
         protocol: "http",
@@ -64,28 +72,14 @@ let timerInstance = new Timer();
           password,
         },
       };
+      configs[i].proxy = true;
     }
     // console.log(proxy);
 
-    if (!proxy) {
-      configs[i].proxy = false;
-      // console.log(`Acc ${configs[i]._id}: Run without proxy`);
-    } else {
-      configs[i].proxy = true;
-    }
-
     let instanceAxios = await axiosInstance(configs[i].token, proxy);
+    // console.log(instanceAxios);
     const ip = await checkProxy(instanceAxios);
-
-    if (!ip) {
-      configs[i].proxy = false;
-      instanceAxios = await axiosInstance(configs[i].token, null);
-      console.log(`Acc ${configs[i]._id}: Proxy is dead, run without proxy`);
-      const localIP = await checkProxy(instanceAxios);
-      console.log(`Acc ${configs[i]._id}:`, localIP);
-    } else {
-      console.log(`Acc ${configs[i]._id}:`, ip);
-    }
+    console.log(`Acc ${configs[i]._id}:`, ip);
 
     const info = await getInfo(instanceAxios);
     configs[i].username = getUsername(info.data.username);
@@ -98,43 +92,44 @@ let timerInstance = new Timer();
     });
     console.log(`Acc ${configs[i]._id}: Balance:`, configs[i].balance);
 
+    coundDownGDuck(instanceAxios, configs[i]);
+
     const harvester = await getHarvester(instanceAxios);
     // console.log("harvester", harvester);
 
     if (harvester.data.is_active === 1) {
-      console.log(`Acc ${configs[i]._id}: CFO is on -> Run collect CFO`);
+      console.log(
+        `Acc ${configs[i]._id}: CFO is ON -> run CFO EGG collect (200%)`
+      );
 
-      configs[i].cfo = true;
-
-      coundDownGDuck(instanceAxios, configs[i]);
+      configs[i].cfo.active = true;
+      configs[i].cfo.amount = harvester.data.total_egg_available;
 
       const collectEggHarvesterInterval = setInterval(async () => {
         try {
           const collectEggHarvester = await collectHarvester(instanceAxios);
           // console.log("collectEggHarvester", collectEggHarvester);
 
-          const balances = await checkBalance(instanceAxios);
-          // console.log("balances:", balances);
-          balances.forEach((bal) => {
-            if (bal.symbol === "EGG") {
-              configs[i].collected.egg += bal.balance - configs[i].balance.egg;
-              configs[i].balance.egg = bal.balance;
-            }
-          });
-          console.log(`Acc ${configs[i]._id}: Balance:`, configs[i].balance);
-          console.log(
-            `Acc ${configs[i]._id}: Collected:`,
-            configs[i].collected
-          );
+          if (collectEggHarvester !== "") {
+            configs[i].collected.egg += configs[i].cfo.amount;
+            configs[i].balance.egg += configs[i].cfo.amount;
+          }
 
           if (collectEggHarvester.error_code === "HARVESTER_INVALID") {
-            clearInterval(collectEggHarvesterInterval); // Dừng interval hiện tại
-            main(); // Gọi lại hàm main để reset và chạy lại
+            clearInterval(collectEggHarvesterInterval);
+            configs[i].isReset = true;
+            configs[i].cfo.active = false;
+            addLog(`Acc ${configs[i].username} CFO -> OFF`);
+            main();
           }
         } catch (error) {
-          console.error("Error collecting harvester:", error);
-          clearInterval(collectEggHarvesterInterval); // Dừng interval hiện tại
-          main(); // Gọi lại hàm main để reset và chạy lại
+          // console.error("Error collecting harvester:", error);
+          clearInterval(collectEggHarvesterInterval);
+          configs[i].isReset = true;
+          configs[i].cfo.active = false;
+          console.log(`Acc ${configs[i]._id} CFO -> OFF`);
+          addLog(`Acc ${configs[i].username} CFO -> OFF`);
+          main();
         }
 
         console.clear();
@@ -144,15 +139,22 @@ let timerInstance = new Timer();
       }, 5e3);
     } else {
       console.log(
-        `Acc ${configs[i]._id}: CFO is off/not have -> Run collect EGG`
+        `Acc ${configs[i]._id}: CFO is OFF or NOT HAVE -> run manual EGG collect`
       );
-
-      coundDownGDuck(instanceAxios, configs[i]);
 
       while (true) {
         const eggCollected = await collectListNest(instanceAxios, configs[i]);
-        // console.log("eggCollected", eggCollected);
+
+        if (typeof eggCollected !== "number")
+          return (
+            (configs[i].isReset = true),
+            console.log(`Acc ${configs[i]._id} CFO -> ON`),
+            addLog(`Acc ${configs[i].username} CFO -> ON`, "error"),
+            main()
+          );
+
         configs[i].collected.egg += eggCollected;
+        configs[i].balance.egg += eggCollected;
         console.log(`Acc ${configs[i]._id}: Balance:`, configs[i].balance);
         console.log(`Acc ${configs[i]._id}: Collected:`, configs[i].collected);
 

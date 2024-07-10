@@ -18,7 +18,7 @@ function showStatusBar(configs, timerInstance) {
   ];
   configs.forEach((config) => {
     statusText.push(
-      `Acc ${config._id}: [ ${config.username} | CFO : ${config.cfo} | Proxy : ${config.proxy} ]`
+      `Acc ${config._id}: [ ${config.username} | CFO : ${config.cfo.active} | Proxy : ${config.proxy} ]`
     );
     statusText.push(
       `Balance: [ ${Number(config.balance.egg).toFixed(2)} EGG 🥚 | ${Number(

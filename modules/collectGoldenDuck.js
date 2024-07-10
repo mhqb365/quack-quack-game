@@ -1,7 +1,7 @@
 const claimGDuck = require("../api/claimGDuck");
 const getGDuckReward = require("../api/getGDuckReward");
-const gDuckRewardText = require("../modules/gDuckRewardText");
-const addLog = require("../modules/addLog");
+const gDuckRewardText = require("./gDuckRewardText");
+const addLog = require("./addLog");
 
 async function collectGoldenDuck(instance, config) {
   try {
