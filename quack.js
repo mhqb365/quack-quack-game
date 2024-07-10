@@ -119,7 +119,7 @@ let timerInstance = new Timer();
             clearInterval(collectEggHarvesterInterval);
             configs[i].isReset = true;
             configs[i].cfo.active = false;
-            addLog(`Acc ${configs[i].username} CFO -> OFF`);
+            addLog(`Acc ${configs[i].username} CFO -> OFF`, "error");
             main();
           }
         } catch (error) {
@@ -128,7 +128,7 @@ let timerInstance = new Timer();
           configs[i].isReset = true;
           configs[i].cfo.active = false;
           console.log(`Acc ${configs[i]._id} CFO -> OFF`);
-          addLog(`Acc ${configs[i].username} CFO -> OFF`);
+          addLog(`Acc ${configs[i].username} CFO -> OFF`, "error");
           main();
         }
 
