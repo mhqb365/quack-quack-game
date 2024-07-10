@@ -1,6 +1,6 @@
 const getGDuckInfo = require("../api/getGDuckInfo");
-const collectGoldenDuck = require("../scripts/collectGoldenDuck");
-const convertSToMS = require("./convertSToMS");
+const collectGoldenDuck = require("../modules/collectGoldenDuck");
+const convertSToMS = require("../modules/convertSToMS");
 
 async function getTimeToGDuck(instance) {
   const goldenDuckInfo = await getGDuckInfo(instance);
@@ -10,6 +10,9 @@ async function getTimeToGDuck(instance) {
 
 function coundDownGDuck(instanceAxios, config) {
   let countdownInterval;
+
+  if (config.isReset) return clearInterval(countdownInterval);
+  config.isReset = false;
 
   const countdown = async () => {
     config.timeToGDuck = await getTimeToGDuck(instanceAxios);

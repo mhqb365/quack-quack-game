@@ -33,7 +33,6 @@ async function collectListNestInternal(
   config
 ) {
   try {
-    // console.log("egg", egg);
     let amountCollect = 0;
 
     if (listNest.length === 0) return egg;
@@ -52,7 +51,11 @@ async function collectListNestInternal(
         `Acc ${config._id}: Egg: ${RARE_EGG[nestToCollect.type_egg]}`
       );
       const collectEggData = await collectEgg(instance, nestToCollect.id);
-      // console.log(collectEggData);
+      if (collectEggData.error_code === "HARVESTER_IS_ACTIVE") {
+        config.cfo.active = true;
+        // console.log("collectEggData.error_code:", collectEggData.error_code);
+        return collectEggData.error_code;
+      }
       amountCollect = AMOUNT_COLLECT[nestToCollect.type_egg];
     } else if (nestToCollect.status === 3) {
       const collectDuckData = await collectDuck(instance, nestToCollect.id);
@@ -66,6 +69,11 @@ async function collectListNestInternal(
 
     const layEggData = await layEgg(instance, nestToCollect.id, duck.id);
     // console.log(layEggData);
+    if (layEggData.error_code === "HARVESTER_IS_ACTIVE") {
+      // console.log("layEggData.error_code:", layEggData.error_code);
+      config.cfo.active = true;
+      return layEggData.error_code;
+    }
 
     listNest = listNest.filter((n) => n.id !== nestToCollect.id);
     listDuck = listDuck.filter((d) => d.id !== duck.id);
