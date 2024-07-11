@@ -9,7 +9,7 @@ async function collectGoldenDuck(instance, config) {
     // console.log(gDuckInfo);
     if (gDuckInfo.data.type === 2 || gDuckInfo.data.type === 3) {
       await claimGDuck(instance);
-      config.gduck.count++;
+
       const amount = Number(gDuckInfo.data.amount);
       if (gDuckInfo.data.type === 2) {
         config.gduck.pet += amount;
@@ -19,6 +19,8 @@ async function collectGoldenDuck(instance, config) {
         config.balance.egg += amount;
       }
     }
+
+    config.gduck.count++;
 
     const reward = gDuckRewardText(gDuckInfo.data);
     console.log(`Acc ${config._id}: GDuck: ${reward}`);
