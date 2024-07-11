@@ -13,8 +13,10 @@ async function collectGoldenDuck(instance, config) {
       const amount = Number(gDuckInfo.data.amount);
       if (gDuckInfo.data.type === 2) {
         config.gduck.pet += amount;
+        config.balance.pet += amount;
       } else {
         config.gduck.egg += amount;
+        config.balance.egg += amount;
       }
     }
 
