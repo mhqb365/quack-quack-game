@@ -32,7 +32,7 @@ Chạy nhiều tài khoản cùng lúc (mỗi tài khoản 1 token, mỗi token 
 
 Dùng proxy cho các tài khoản (proxy bạn tự chuẩn bị nhé, proxy có định dạng: ip:port:username:password, mỗi proxy 1 dòng, bỏ vào file 'proxy.txt', chưa có file thì tạo, thứ tự tương ứng với tài tài khoản bên file 'token.txt', tài khoản nào không dùng proxy thì dòng đó ghi vào chữ 'none')
 
-Lưu ý: bạn phải ấp thủ công đủ tối thiểu 15 con vịt rồi mới chạy tun
+Lưu ý: tun chạy hoàn toàn độc lập, thao tác trên game không bị ảnh hưởng, nhưng bạn phải ấp thủ công đủ tối thiểu 15 con vịt rồi mới chạy tun nhé
 
 ## Cách dùng
 
