@@ -44,7 +44,7 @@ Lưu ý: bạn phải ấp thủ công đủ tối thiểu 15 con vịt rồi m�
 
 4. Chạy lệnh ```npm install``` (mỗi lần tải tun về đều phải chạy lệnh này)
 
-5. Bỏ token game vào file 'token.json', bỏ proxy vào file 'proxy.txt' (nếu có proxy)
+5. Bỏ token game vào file 'token.txt', bỏ proxy vào file 'proxy.txt' (nếu có proxy)
 
 6. Chạy lệnh ```node quack``` để tun tự động làm việc
 
