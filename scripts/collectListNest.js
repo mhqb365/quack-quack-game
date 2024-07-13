@@ -97,6 +97,12 @@ async function collectListNestInternal(instance, config, egg = 0) {
 
 async function collectListNest(instance, config) {
   try {
+    if (!config.farm.hatch) {
+      const maxDuckSlot = await getMaxDuck(instance);
+      // console.log(maxDuckSlot);
+      config.farm.maxDuck = maxDuckSlot.data.max_duck;
+    }
+
     const list = await getListReload(instance);
     // console.log(list);
     config.listNest = list.data.nest || [];
@@ -104,60 +110,53 @@ async function collectListNest(instance, config) {
 
     // console.log(list.data.duck.length);
 
-    if (!config.farm.hatch) {
-      const maxDuckSlot = await getMaxDuck(instance);
-      // console.log(maxDuckSlot);
-      config.farm.maxDuck = maxDuckSlot.data.max_duck;
-      config.farm.duck = config.listDuck.length;
-      config.nest = config.listNest.length;
+    config.farm.duck = config.listDuck.length;
+    config.nest = config.listNest.length;
 
-      switch (config.nest) {
-        case 3:
-          config.farm.maxRareEgg = 4;
-          config.farm.maxRareDuck = 4;
-          break;
-        case 4:
-          config.farm.maxRareEgg = 6;
-          config.farm.maxRareDuck = 5;
-          break;
-        case 5:
-          config.farm.maxRareEgg = 8;
-          config.farm.maxRareDuck = 6;
-          break;
-        case 6:
-          config.farm.maxRareEgg = 10;
-          config.farm.maxRareDuck = 7;
-          break;
-        case 7:
-          config.farm.maxRareEgg = 12;
-          config.farm.maxRareDuck = 8;
-          break;
-        case 8:
-          config.farm.maxRareEgg = 13;
-          config.farm.maxRareDuck = 9;
-          break;
-        case 9:
-          config.farm.maxRareEgg = 13;
-          config.farm.maxRareDuck = 9;
-          break;
-      }
+    switch (config.nest) {
+      case 3:
+        config.farm.maxRareEgg = 4;
+        config.farm.maxRareDuck = 4;
+        break;
+      case 4:
+        config.farm.maxRareEgg = 6;
+        config.farm.maxRareDuck = 5;
+        break;
+      case 5:
+        config.farm.maxRareEgg = 8;
+        config.farm.maxRareDuck = 6;
+        break;
+      case 6:
+        config.farm.maxRareEgg = 10;
+        config.farm.maxRareDuck = 7;
+        break;
+      case 7:
+        config.farm.maxRareEgg = 12;
+        config.farm.maxRareDuck = 8;
+        break;
+      case 8:
+        config.farm.maxRareEgg = 13;
+        config.farm.maxRareDuck = 9;
+        break;
+      case 9:
+        config.farm.maxRareEgg = 13;
+        config.farm.maxRareDuck = 9;
+        break;
+    }
 
-      const lowerDuck = config.listDuck.filter(
-        (item) => item.total_rare < config.farm.maxRareDuck
+    const lowerDuck = config.listDuck.filter(
+      (item) => item.total_rare < config.farm.maxRareDuck
+    );
+
+    // console.log("lowerDuck:", lowerDuck.length);
+    if (config.listDuck.length < config.farm.maxDuck || lowerDuck.length > 0) {
+      config.farm.hatch = true;
+      console.log(
+        `Acc ${config._id}: Auto hatch EGG ${RARE_EGG[config.farm.maxRareEgg]}`
       );
-
-      // console.log("lowerDuck:", lowerDuck.length);
-      if (
-        config.listDuck.length < config.farm.maxDuck ||
-        lowerDuck.length > 0
-      ) {
-        config.farm.hatch = true;
-        console.log(
-          `Acc ${config._id}: Auto hatch EGG ${
-            RARE_EGG[config.farm.maxRareEgg]
-          }`
-        );
-      } else console.log(`Acc ${config._id}: FARM good`);
+    } else {
+      config.farm.hatch = false;
+      console.log(`Acc ${config._id}: FARM good with NEST, stop hatch`);
     }
 
     if (config.listNest.length === 0) return 0;
