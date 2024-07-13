@@ -1,4 +1,4 @@
-# Quack Quack Game Tun
+# QUACK QUACK GAME TUN
 
 ## Giới thiệu
 
