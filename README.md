@@ -1,4 +1,4 @@
-# Quack Quack Game Tun
+# QUACK QUACK GAME TUN
 
 ## Giới thiệu
 
@@ -24,9 +24,11 @@ Chúc bạn sử dụng tun vui vẻ
 
 ## Tính năng
 
-Tự động lụm trứng, có CFO thì tốc độ lụm giống đang treo game
+Tự động lụm trứng, bật CFO thì tốc độ lụm như đang treo game
 
 Tự động lụm ZỊT ZÀNG, nhưng không lụm được TON, không lụm X2
+
+Tự động ấp trứng hiếm tìm vịt xịn, bật CFO thì không ấp trứng
 
 Chạy nhiều tài khoản cùng lúc (mỗi tài khoản 1 token, mỗi token 1 dòng, bỏ vào file 'token.txt', chưa có file thì tạo)
 

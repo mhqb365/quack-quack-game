@@ -43,16 +43,22 @@ let configs = tokens.map((token, index) => {
       egg: 0,
       pet: 0,
     },
+    farm: {
+      hatch: false,
+      duck: 0,
+      maxDuck: 0,
+      maxRareEgg: 0,
+      maxRareDuck: 0,
+    },
   };
 });
 // console.log(configs);
 let timerInstance = new Timer();
 
 (async function main() {
-  console.clear();
-
-  console.log(`Quack Quack Game Tun`);
-  console.log(`Link tun: [ j2c.cc/quack ]`);
+  // console.clear();
+  console.log(`QUACK QUACK GAME TUN`);
+  console.log(`Link : [ j2c.cc/quack ]`);
   console.log();
 
   timerInstance.start();
@@ -78,7 +84,14 @@ let timerInstance = new Timer();
 
     let instanceAxios = await axiosInstance(configs[i].token, proxy);
     // console.log(instanceAxios);
-    const ip = await checkProxy(instanceAxios);
+    let ip = await checkProxy(instanceAxios);
+
+    if (!ip) {
+      console.log(`Acc ${configs[i]._id}: Proxy is dead`);
+      instanceAxios = await axiosInstance(configs[i].token);
+      ip = await checkProxy(instanceAxios);
+    }
+
     console.log(`Acc ${configs[i]._id}:`, ip);
 
     const info = await getInfo(instanceAxios);
@@ -144,6 +157,7 @@ let timerInstance = new Timer();
 
       while (true) {
         const eggCollected = await collectListNest(instanceAxios, configs[i]);
+        // console.log("eggCollected:", eggCollected);
 
         if (typeof eggCollected !== "number")
           return (

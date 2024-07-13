@@ -10,7 +10,7 @@ const handleAxiosError = async (error, apiType) => {
 
     if (status >= 500) {
       console.log("Lost connect, auto connect after 5s, retry to die");
-      addLog(`Error ${status}`, "error");
+      addLog(`Error ${apiType} ${status}`, "error");
       await sleep(5);
     } else if (status === 401) {
       console.log("Token error or expired");
@@ -26,12 +26,12 @@ const handleAxiosError = async (error, apiType) => {
   } else if (error.request) {
     console.log("request", error.request);
     console.log("Lost connect, auto connect after 3s, retry to die");
-    addLog(`Error request ${error.request}`, "error");
+    addLog(`Error ${apiType} request ${error.request}`, "error");
     await sleep(3);
   } else {
     console.log("error", error.message);
     console.log("Lost connect, auto connect after 3s, retry to die");
-    addLog(`Error ${error.message}`, "error");
+    addLog(`Error ${apiType} ${error.message}`, "error");
     await sleep(3);
   }
 

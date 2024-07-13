@@ -7,6 +7,9 @@ async function collectGoldenDuck(instance, config) {
   try {
     const gDuckInfo = await getGDuckReward(instance);
     // console.log(gDuckInfo);
+
+    if (gDuckInfo.data.type === 1) return gDuckInfo;
+
     if (gDuckInfo.data.type === 2 || gDuckInfo.data.type === 3) {
       await claimGDuck(instance);
 
