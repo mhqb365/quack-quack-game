@@ -84,7 +84,14 @@ let timerInstance = new Timer();
 
     let instanceAxios = await axiosInstance(configs[i].token, proxy);
     // console.log(instanceAxios);
-    const ip = await checkProxy(instanceAxios);
+    let ip = await checkProxy(instanceAxios);
+
+    if (!ip) {
+      console.log(`Acc ${configs[i]._id}: Proxy is dead`);
+      instanceAxios = await axiosInstance(configs[i].token);
+      ip = await checkProxy(instanceAxios);
+    }
+
     console.log(`Acc ${configs[i]._id}:`, ip);
 
     const info = await getInfo(instanceAxios);
